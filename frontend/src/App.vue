@@ -132,5 +132,12 @@ export default {
 #footer a {
   color:white; 
 }
+@font-face {
+  font-family: MaplestoryLight;
+  src:url('../src/assets/font/Maplestory Light.ttf');
+}
 
+body {
+  font-family: MaplestoryLight !important;
+}
 </style>

@@ -29,7 +29,6 @@ import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("/stores")
-@CrossOrigin(origins = { "*" }) 
 public class StoreController {
 	@Autowired
 	private StoreService storeService;
