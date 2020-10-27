@@ -6,14 +6,14 @@
             <div>
                 <v-tabs v-model="tab" show-arrows background-color="deep-purple accent-4" icons-and-text dark grow>
                     <v-tabs-slider color="purple darken-4"></v-tabs-slider>
-                    <v-tab v-for="i in tabs" :key="i">
+                    <v-tab v-for="(i, idx) in tabs" :key="idx">
                         <v-icon large>{{ i.icon }}</v-icon>
                         <div class="caption py-1">{{ i.name }}</div>
                     </v-tab>
                     <v-tab-item>
                         <v-card class="px-4">
                             <v-card-text>
-                                <v-form ref="loginForm" v-model="valid" lazy-validation>
+                                <v-form ref="loginForm" >
                                     <v-row max-width="500px">
                                         <v-col cols="12">
                                             <v-text-field v-model="loginData.loginEmail" :rules="loginEmailRules" label="E-mail" required></v-text-field>

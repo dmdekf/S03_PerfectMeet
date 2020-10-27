@@ -63,7 +63,7 @@ export default {
             this.$router.push(`/stores/detail/${id}`);
         },
         getStores() {
-            axios.get("http://j3a507.p.ssafy.io:8399/stores?loc="+this.loc+"&pur="+this.pur)
+            axios.get("http://localhost:8399/stores?loc="+this.loc+"&pur="+this.pur)
             .then((res)=>{
                     if(res.data) {
                         console.log(res.data);

@@ -553,6 +553,7 @@
       },
       next(){
         this.$emit('next', this.loc);
+        console.log(this.loc);
       }
     },
   };
