@@ -56,37 +56,15 @@
 
 ## Gantt Chart
 gantt
-    dateFormat  YYYY-MM-DD
-    title       프로젝트 이름
-    excludes    weekends
-    %% (`excludes` accepts specific dates in YYYY-MM-DD format, days of the week ("sunday") or "weekends", but not the word "weekdays".)
+dateFormat  YYYY-MM-DD
+title Adding GANTT diagram to mermaid
+excludes weekends
 
-    section 프로젝트 준비
-    기술학습            :done,    des1, 2020-10-19,3d
-    백엔드 준비         :active,  des2, 2020-10-21, 3d
-
-
-    section 유저 기능
-    유저 기능 구현 :crit, done, 2020-10-22,24h
-    코드 생성기능       :crit, done, 2020-10-23, 2d
-    Create tests for parser             :crit, active, 3d
-    Future task in critical line        :crit, 5d
-    Create tests for renderer           :2d
-    Add to mermaid                      :1d
-
-    section 메인 페이지
-    Describe gantt syntax               :active, a1, after des1, 3d
-    Add gantt diagram to demo page      :after a1  , 20h
-    Add another diagram to demo page    :doc1, after a1  , 48h
-
-    section 테스트
-    Describe gantt syntax               :after doc1, 3d
-    Add gantt diagram to demo page      :20h
-    Add another diagram to demo page    :48h
-    
-    section 기타
-    UCC제작 : 3d
-    발표준비 :crit, 2d
+section A section
+Completed task            :done,    des1, 2020-09-14, 5d
+Active task               :active,  des2, after des1, 5d
+Future task               :         des3, after des2, 5d
+Future task2              :         des4, after des3, 5d
     
 ## 기술 스택
 
