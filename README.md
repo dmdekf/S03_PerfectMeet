@@ -59,7 +59,7 @@
 ```mermaid
 gantt
     dateFormat  YYYY-MM-DD
-    title       Dinning&ssul
+    title       Dinning&Ssul
     %% (`excludes` accepts specific dates in YYYY-MM-DD format, days of the week ("sunday") or "weekends", but not the word "weekdays".)
 
     section 프로젝트 준비
