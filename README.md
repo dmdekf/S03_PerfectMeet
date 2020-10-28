@@ -54,6 +54,18 @@
 
 - 20200907-20201017
 
+## Gantt Chart
+gantt
+dateFormat  YYYY-MM-DD
+title Adding GANTT diagram to mermaid
+excludes weekends
+
+section A section
+Completed task            :done,    des1, 2020-09-14, 5d
+Active task               :active,  des2, after des1, 5d
+Future task               :         des3, after des2, 5d
+Future task2              :         des4, after des3, 5d
+    
 ## 기술 스택
 
 - Front-end: Vue.cli, node.js, Vuetify, Vuex, bootstrap
