@@ -31,6 +31,9 @@ public class ReserveWait {
 	@Column 
 	private LocalDateTime reserve_date;
 	
+	@Column
+	private int people_num;
+	
 	
 	
 }
