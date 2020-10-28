@@ -59,7 +59,7 @@
 ```mermaid
 gantt
     dateFormat  YYYY-MM-DD
-    title       Dinning&Ssul
+    title       Dinning&ssul
     %% (`excludes` accepts specific dates in YYYY-MM-DD format, days of the week ("sunday") or "weekends", but not the word "weekdays".)
 
     section 프로젝트 준비
@@ -76,9 +76,10 @@ gantt
     Review CRUD		: done, review, after store, 1d
     Dib CRUD 		: done, dib, after board,1d
    
-   	Backend 구축 2주차	: crit, active, f1, 2020-10-26, 5d
+   	Backend 구축 2주차	: crit, active, b2, 2020-10-26, 5d
    	Reserve CRUD	: active, reserve, 2020-10-26, 3d
    	
+   	Backend 구축 3주차	: b3, 2020-11-02, 5d
     section Frontend
     Frontend 구축 1주차	: crit, done, f1, 2020-10-19, 5d
     Wireframe 	     : done, wireframe, 2020-10-19, 1d
@@ -88,10 +89,11 @@ gantt
     Review page		: done, reviewPage, after review, 1d
     Dibs page 		: done, dibPage, after dib, 1d
     
-    Frontend 구축 2주차	: crit, active, f1, 2020-10-26, 5d
+    Frontend 구축 2주차	: crit, active, f2, 2020-10-26, 5d
     Page 안정화 작업	: active, PageStabilization, 2020-10-26, 3d
     reserve Page   : active, reservePage, after PageStabilization,2d
     
+    Backend 구축 3주차	: f3, 2020-11-02, 5d
     section 테스트
     기능 테스트      : crit, 2020-11-07, 5d
     
