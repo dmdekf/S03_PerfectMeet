@@ -69,30 +69,35 @@ gantt
 	Backend 준비		:done, after des2, 2d
 	
 	section backend
-    DB 구축 	: crit, done, b1, 2020-10-19, 5d
+    Backend 구축 1주차 	: crit, done, b1, 2020-10-19, 5d
     User CRUD 		: done, user, 2020-10-19, 2d
     Board CRUD      : done, board, after user, 1d
     Store CRUD		: done, store, after user, 1d
     Review CRUD		: done, review, after store, 1d
     Dib CRUD 		: done, dib, after board,1d
-    
+   
+   	Backend 구축 2주차	: crit, active, f1, 2020-10-26, 5d
+   	Reserve CRUD	: active, reserve, 2020-10-26, 3d
+   	
     section Frontend
-    Frontend 구축 	: crit, done, f1, 2020-10-19, 5d
+    Frontend 구축 1주차	: crit, done, f1, 2020-10-19, 5d
     Wireframe 	     : done, wireframe, 2020-10-19, 1d
     User page 		: done, userPage, after user, 1d
     Board page      : done, boardPage, after board, 1d
     Store page		: done, storePage, after store, 1d
     Review page		: done, reviewPage, after review, 1d
-    Dib page 		: done, dibPage, after dib, 1d
+    Dibs page 		: done, dibPage, after dib, 1d
+    
+    Frontend 구축 2주차	: crit, active, f1, 2020-10-26, 5d
+    Page 안정화 작업	: active, PageStabilization, 2020-10-26, 3d
+    reserve Page   : active, reservePage, after PageStabilization,2d
     
     section 테스트
-    Describe gantt syntax               :after doc1, 3d
-    Add gantt diagram to demo page      :20h
-    Add another diagram to demo page    :48h
+    기능 테스트      : crit, 2020-11-07, 5d
     
     section 기타
-    UCC제작 : 3d
-    발표준비 :crit, 2d
+    UCC제작 : 2020-11-16,3d
+    발표준비 : 2d
 ```
 
 
