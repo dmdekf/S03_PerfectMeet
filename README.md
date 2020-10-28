@@ -63,6 +63,50 @@
 - Oauth2.0을 이용한 소셜 로그인
 - Vue.cli와 router를 이용하여 SPA를 구현함으로써 빠른 UI/UX 향상
 
+```mermaid
+gantt
+    dateFormat  YYYY-MM-DD
+    title       Dinning&ssul
+    excludes    weekends
+    %% (`excludes` accepts specific dates in YYYY-MM-DD format, days of the week ("sunday") or "weekends", but not the word "weekdays".)
+
+    section 프로젝트 준비
+    Git 이관 			:done, des1, 2020-10-12, 2d
+    JIRA 작성			:done, des2, 2020-10-13, 2d
+    Frontend준비     :done, after des2, 2d
+	Backend 준비		:done, after des2, 2d
+	
+	section backend
+    DB 구축 	: crit, done, b1, 2020-10-19, 5d
+    User CRUD 		: done, user, 2020-10-19, 2d
+    Board CRUD      : done, board, after user, 1d
+    Store CRUD		: done, store, after user, 1d
+    Review CRUD		: done, review, after store, 1d
+    Dib CRUD 		: done, dib, after board,1d
+    
+    section Frontend
+    Frontend 구축 	: crit, done, f1, 2020-10-19, 5d
+    Wireframe 	     : done, wireframe, 2020-10-19, 1d
+    User page 		: done, userPage, after user, 1d
+    Board page      : done, boardPage, after board, 1d
+    Store page		: done, storePage, after store, 1d
+    Review page		: done, reviewPage, after review, 1d
+    Dib page 		: done, dibPage, after dib, 1d
+    
+    section 테스트
+    Describe gantt syntax               :after doc1, 3d
+    Add gantt diagram to demo page      :20h
+    Add another diagram to demo page    :48h
+    
+    section 기타
+    UCC제작 : 3d
+    발표준비 :crit, 2d
+```
+
+
+
+
+
 ## Author
 
 👨 **Youngwook Go**
