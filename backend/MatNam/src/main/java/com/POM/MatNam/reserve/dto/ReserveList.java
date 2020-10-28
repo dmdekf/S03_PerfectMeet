@@ -33,5 +33,5 @@ public class ReserveList {
 	private LocalDateTime reserve_date;
 	
 	@Column 
-	private boolean reserve;
+	private int people_num;
 }

@@ -25,4 +25,8 @@ public class ReserveListRequestDTO {
 	@NotBlank(message = "예약 시간은 필 수 입니다.")
 	LocalDateTime date;
 	
+	@ApiModelProperty(required = true)
+	@NotBlank(message = "예약 인원은 필 수 입니다.")
+	int people_num;
+	
 }
