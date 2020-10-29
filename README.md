@@ -57,15 +57,21 @@
 ## Git-flow 전략
 
 - master : 최종 제출할 브랜치
+- 
 - release : 최종 제출 전 정리하는 브랜치
+- 
 - feature/front/*: Frontend 기능을 개발하는 브랜치
+- 
 - feature/back/*: Backend 기능을 개발하는 브랜치
 
 ## Develop rule
 
 1. 개발을 시작하기 전에 JIRA를 작성한다.
+
 2. 공유하는 브랜치의 커밋 그래프는 함부로 변경하지 않는다.
+ 
 3. 팀원에게 꼭 리뷰를 받는다.
+
 4. 자신의 Pull Request는 스스로 merge한다.
 
 ## Gantt Chart
