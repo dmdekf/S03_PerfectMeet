@@ -57,11 +57,11 @@
 ## Git-flow 전략
 
 - master : 최종 제출할 브랜치
-- 
+
 - release : 최종 제출 전 정리하는 브랜치
-- 
+
 - feature/front/*: Frontend 기능을 개발하는 브랜치
-- 
+
 - feature/back/*: Backend 기능을 개발하는 브랜치
 
 ## Develop rule
