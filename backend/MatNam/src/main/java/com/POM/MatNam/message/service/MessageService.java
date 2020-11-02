@@ -31,7 +31,7 @@ public class MessageService {
 		Optional<List<Message>> optMessage = messageDao.findMessageByReceiver(receiver);
 		
 		if(optMessage.isPresent()) {
-			result = optMessage;
+			result = optMessage.get();
 		}else {
 			result ="empty";
 		}
@@ -46,7 +46,7 @@ public class MessageService {
 		Optional<List<Message>> optMessage = messageDao.findMessageByReceiverAndNoCheck(receiver);
 		
 		if(optMessage.isPresent()) {
-			result = optMessage;
+			result = optMessage.get();
 		}else {
 			result ="empty";
 		}
@@ -61,7 +61,7 @@ public class MessageService {
 		Optional<List<Message>> optMessage = messageDao.findMessageBySender(sender);
 		
 		if(optMessage.isPresent()) {
-			result = optMessage;
+			result = optMessage.get();
 		}else {
 			result ="empty";
 		}
@@ -80,6 +80,7 @@ public class MessageService {
 			sendMessage.setContent(request.getContent());
 			sendMessage.setReceiver(request.getReceiver());
 			sendMessage.setSender(request.getSender());
+			sendMessage.setCheck_message(false);
 			messageDao.save(sendMessage);
 		}else {
 			result = false;
@@ -95,7 +96,7 @@ public class MessageService {
 		Optional<Message>optMessage = messageDao.findById(message_id);
 		if(optMessage.isPresent()) {
 			Message rMessage = optMessage.get();
-			rMessage.setCheck(true);
+			rMessage.setCheck_message(true);
 			messageDao.save(rMessage);
 		}else {
 			result = false;
