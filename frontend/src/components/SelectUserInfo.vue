@@ -37,7 +37,7 @@
           <div class="age">
             <h3>2. 당신의 나이는?</h3>
             <span class="form">
-              <input type="number" oninput="maxLengthCheck(this)" maxlength="3" id="age" /> 세
+              <input type="number" id="age" /> 세
             </span>
             <p>
               성인 유저의 데이터를 활용합니다.
