@@ -27,7 +27,7 @@ import io.swagger.annotations.ApiOperation;
 
 @RestController
 @CrossOrigin(origins = { "*" })
-@RequestMapping("feature/message")
+@RequestMapping("/message")
 
 public class MessageController {
 	@Autowired
@@ -59,7 +59,7 @@ public class MessageController {
 	
 	@GetMapping("/checkMessage")
 	@ApiOperation(value ="특정 수신자가 받은 메세지 중 확인하지 않은 메세지 가져오기")
-	public Object getReceiverMessageCheck(@RequestParam String receiver) {
+	public Object getReceiverMessageNoCheck(@RequestParam String receiver) {
 		ResponseEntity<BasicResponse> response = null;
 		Map<String, Object>errors = new HashMap<>();
 		Object rmlist = messageService.getMessageByReceiverAndCheck(receiver);

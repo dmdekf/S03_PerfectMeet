@@ -34,7 +34,7 @@ import io.swagger.annotations.ApiOperation;
 
 @RestController
 @CrossOrigin(origins = { "*" })
-@RequestMapping("feature/reserve")
+@RequestMapping("/reserve")
 
 public class ReserveController {
 	
@@ -175,7 +175,7 @@ public class ReserveController {
 		return response;
 	}
 	
-	@PutMapping("updateWait")
+	@PutMapping("/updateWait")
 	@ApiOperation(value="예약 요청 변경")
 	public Object updateReserveWait(@Valid @RequestBody ReserveWait request, @RequestHeader(value="nickname", required =true)String nickname) {
 		ResponseEntity<BasicResponse> response = null;

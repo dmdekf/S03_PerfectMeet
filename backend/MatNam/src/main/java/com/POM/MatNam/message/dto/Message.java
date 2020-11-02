@@ -30,5 +30,5 @@ public class Message {
 	private String content;
 	
 	@Column
-	private boolean check;
+	private boolean check_message;
 }

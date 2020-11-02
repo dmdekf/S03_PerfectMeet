@@ -19,6 +19,6 @@ public interface MessageDao extends JpaRepository<Message, Long> {
 	Optional<List<Message>> findMessageBySender(String sender);
 	
 	// 특정 유저가 체크 안한 메세지만 받아 오기
-	@Query(value = "SELECT * FROM message WHERE receiver=:receiver AND check = FALSE", nativeQuery = true)
+	@Query(value = "SELECT * FROM message WHERE receiver=:receiver AND check_message = false", nativeQuery = true)
 	Optional<List<Message>> findMessageByReceiverAndNoCheck(String receiver);
 }
