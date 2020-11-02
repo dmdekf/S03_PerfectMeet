@@ -43,7 +43,7 @@ public class ReserveController {
 	
 	@GetMapping("/reserveList")
 	@ApiOperation(value ="가게 예약 리스트 가져오기")
-	public Object getReserveList(Long store_id) {
+	public Object getReserveList(@RequestParam Long store_id) {
 		ResponseEntity<BasicResponse> response = null;
 		Map<String, Object> errors = new HashMap<>();
 		Object reservelist = reserveService.reserveListStore(store_id);
@@ -68,7 +68,7 @@ public class ReserveController {
 	
 	@GetMapping("/reserveWait")
 	@ApiOperation(value ="가게 예약 요청 목록 가져오기")
-	public Object getReserveWait(Long store_id) {
+	public Object getReserveWait(@RequestParam Long store_id) {
 		ResponseEntity<BasicResponse> response = null;
 		Map<String, Object> errors = new HashMap<>();
 		Object reserveWait = reserveService.reserveWaitStore(store_id);
@@ -214,7 +214,7 @@ public class ReserveController {
 	
 	@DeleteMapping("/removeList")
 	@ApiOperation(value = "예약 리스트 제거")
-	public Object deleteList(@RequestParam Long store_id, LocalDateTime reserve_time, 
+	public Object deleteList(@RequestParam Long store_id, @RequestParam LocalDateTime reserve_time, 
 			@RequestHeader(value="nickname", required =true)String nickname) {
 		ResponseEntity<BasicResponse> response = null;
 		Map<String, Object> errors = new HashMap<>();
@@ -245,7 +245,7 @@ public class ReserveController {
 	
 	@DeleteMapping("/removeWait")
 	@ApiOperation(value = "예약 요청 제거")
-	public Object deleteWait(@RequestParam Long store_id, LocalDateTime reserve_time, 
+	public Object deleteWait(@RequestParam Long store_id, @RequestParam LocalDateTime reserve_time, 
 			@RequestHeader(value="nickname", required =true)String nickname) {
 		ResponseEntity<BasicResponse> response = null;
 		Map<String, Object> errors = new HashMap<>();
