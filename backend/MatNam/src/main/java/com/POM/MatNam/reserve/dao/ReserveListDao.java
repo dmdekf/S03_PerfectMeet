@@ -24,7 +24,7 @@ public interface ReserveListDao extends JpaRepository<ReserveList, Long>{
 	Optional<List<ReserveList>> findReserveListByNickname(String nickname);
 	
 	// 유저의 과거 예약 이력을 볼 수 있게 해줌
-	@Query(value="SELECT * FROM reserve_list WHERE nickname =:nickane AND reserve_time <= now()")
+	@Query(value="SELECT * FROM reserve_list WHERE nickname =:nickname AND reserve_time <= now()", nativeQuery = true)
 	Optional<List<ReserveList>> findPastList(String nickname);
 	
 }
