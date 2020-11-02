@@ -96,6 +96,17 @@ public class ReserveService {
 		return result;
 	}
 	
+	public Object getListById(Long list_id) {
+		Object result;
+		Optional<ReserveList> list = reserveListDao.findById(list_id);
+		if(list .isPresent()) {
+			result = list.get();
+		}else {
+			result = "notFound";
+		}
+		return result;
+	}
+	
 	public Object getWait(Long store_id, LocalDateTime reserve_time, String nickname) {
 		
 		Object result;
@@ -105,6 +116,17 @@ public class ReserveService {
 			
 		}else {
 			result ="notFound";
+		}
+		return result;
+	}
+	
+	public Object getWaitById(Long list_id) {
+		Object result;
+		Optional<ReserveWait> list = reserveWaitDao.findById(list_id);
+		if(list .isPresent()) {
+			result = list.get();
+		}else {
+			result = "notFound";
 		}
 		return result;
 	}
@@ -197,10 +219,10 @@ public class ReserveService {
 	
 	public void deleteReservationWait(Long wait_id) {
 		
-		Optional<ReserveList> optWait;
-		optWait = reserveListDao.findById(wait_id);
+		Optional<ReserveWait> optWait;
+		optWait = reserveWaitDao.findById(wait_id);
 		
-		reserveListDao.delete(optWait.get());	
+		reserveWaitDao.delete(optWait.get());	
 		
 	}
 	

@@ -12,7 +12,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity (name="reseve_list")
+@Entity (name="reserve_list")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
