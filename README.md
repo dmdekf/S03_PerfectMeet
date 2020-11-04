@@ -52,7 +52,76 @@
 
 ## Develop Period
 
-- 20200907-20201017
+- 20201005-20201120
+
+## Git-flow 전략
+
+- master : 최종 제출할 브랜치
+
+- release : 최종 제출 전 정리하는 브랜치
+
+- feature/front/*: Frontend 기능을 개발하는 브랜치
+
+- feature/back/*: Backend 기능을 개발하는 브랜치
+
+## Develop rule
+
+1. 개발을 시작하기 전에 JIRA를 작성한다.
+
+2. 공유하는 브랜치의 커밋 그래프는 함부로 변경하지 않는다.
+ 
+3. 팀원에게 꼭 리뷰를 받는다.
+
+4. 자신의 Pull Request는 스스로 merge한다.
+
+## Gantt Chart
+
+```mermaid
+gantt
+    dateFormat  YYYY-MM-DD
+    title       Dinning&ssul
+    %% (`excludes` accepts specific dates in YYYY-MM-DD format, days of the week ("sunday") or "weekends", but not the word "weekdays".)
+
+    section 프로젝트 준비
+    Git 이관 			:done, des1, 2020-10-12, 2d
+    JIRA 작성			:done, des2, 2020-10-13, 2d
+    Frontend준비     :done, after des2, 2d
+	Backend 준비		:done, after des2, 2d
+	
+	section backend
+    Backend 구축 1주차 	: crit, done, b1, 2020-10-19, 5d
+    User CRUD 		: done, user, 2020-10-19, 2d
+    Board CRUD      : done, board, after user, 1d
+    Store CRUD		: done, store, after user, 1d
+    Review CRUD		: done, review, after store, 1d
+    Dib CRUD 		: done, dib, after board,1d
+   
+   	Backend 구축 2주차	: crit, active, b2, 2020-10-26, 5d
+   	Reserve CRUD	: active, reserve, 2020-10-26, 3d
+   	
+   	Backend 구축 3주차	: b3, 2020-11-02, 5d
+    section Frontend
+    Frontend 구축 1주차	: crit, done, f1, 2020-10-19, 5d
+    Wireframe 	     : done, wireframe, 2020-10-19, 1d
+    User page 		: done, userPage, after user, 1d
+    Board page      : done, boardPage, after board, 1d
+    Store page		: done, storePage, after store, 1d
+    Review page		: done, reviewPage, after review, 1d
+    Dibs page 		: done, dibPage, after dib, 1d
+    
+    Frontend 구축 2주차	: crit, active, f2, 2020-10-26, 5d
+    Page 안정화 작업	: active, PageStabilization, 2020-10-26, 3d
+    reserve Page   : active, reservePage, after PageStabilization,2d
+    
+    Backend 구축 3주차	: f3, 2020-11-02, 5d
+    section 테스트
+    기능 테스트      : crit, 2020-11-07, 5d
+    
+    section 기타
+    UCC제작 : 2020-11-16,3d
+    발표준비 : 2d
+```
+
 
 ## 기술 스택
 
