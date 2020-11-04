@@ -9,9 +9,9 @@
                         <div class="item">
                             <div class="recom">추천{{id+1}}</div><br/>
                             
-                                <img v-if="id==0" src="../assets/img/gold-medal.png">
-                                <img v-if="id==1" src="../assets/img/silver-medal.png">
-                                <img v-if="id==2" src="../assets/img/bronze-medal.png">
+                                <img v-if="id==0" src="../../assets/img/gold-medal.png">
+                                <img v-if="id==1" src="../../assets/img/silver-medal.png">
+                                <img v-if="id==2" src="../../assets/img/bronze-medal.png">
                             
                             <div class="name"><h3>{{post.name}}</h3></div>
                             <div class = "address"><v-icon>mdi-home-variant</v-icon>{{post.address}}</div>
@@ -46,9 +46,9 @@ export default {
         return {
             storeList:[],
             photos: [
-                '../assets/img/gold-medal.png',
-                '../assets/img/silver-medal.png',
-                '../assets/img/bronze-medal.png',
+                '../../assets/img/gold-medal.png',
+                '../../assets/img/silver-medal.png',
+                '../../assets/img/bronze-medal.png',
             ],
             limit:0,
             url:"",

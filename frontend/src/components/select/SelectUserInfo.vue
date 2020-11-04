@@ -72,10 +72,10 @@ export default {
   margin-top: 60px;
 }
 .map-road-user-info .sex > div.male i {
-  background-image: url(../assets/img/ico_male.png);
+  background-image: url(../../assets/img/ico_male.png);
 }
 .map-road-user-info .sex > div.female i {
-  background-image: url(../assets/img/ico_female.png);
+  background-image: url(../../assets/img/ico_female.png);
 }
 .map-road-user-info {
   text-align: center;

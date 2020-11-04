@@ -16,6 +16,8 @@ import boardDetail from "../components/board/Detail.vue";
 import storeDetail from "../components/stores/Detail.vue"
 
 import reviewWrite from "../components/review/Write.vue"
+
+
 Vue.use(BootstrapVue)
 Vue.use(Vuex)
 Vue.use(VueRouter)
@@ -97,7 +99,6 @@ const routes = [
     name: "reviewWrite",
     component: reviewWrite,
   },
-  
 ];
 
 const router = new VueRouter({
