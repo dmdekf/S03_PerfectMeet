@@ -37,7 +37,7 @@
           <div class="age">
             <h3>2. 당신의 나이는?</h3>
             <span class="form">
-              <input type="number" oninput="maxLengthCheck(this)" maxlength="3" id="age" /> 세
+              <input type="number" id="age" /> 세
             </span>
             <p>
               성인 유저의 데이터를 활용합니다.
@@ -72,10 +72,10 @@ export default {
   margin-top: 60px;
 }
 .map-road-user-info .sex > div.male i {
-  background-image: url(../assets/img/ico_male.png);
+  background-image: url(../../assets/img/ico_male.png);
 }
 .map-road-user-info .sex > div.female i {
-  background-image: url(../assets/img/ico_female.png);
+  background-image: url(../../assets/img/ico_female.png);
 }
 .map-road-user-info {
   text-align: center;

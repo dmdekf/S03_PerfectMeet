@@ -87,10 +87,10 @@ export default {
 .map-road-choice .item i .img { display: block; width: 237px; height: 150px; background-repeat: no-repeat; background-position: 50% 50%; background-size: contain; }/* 200525 */
 
 
-.map-road-choice.step03 .item.item01 i .img { background-image: url("../assets/img/wedding.png"); } 
-.map-road-choice.step03 .item.item02 i .img { background-image: url("../assets/img/teammate.png"); } 
-.map-road-choice.step03 .item.item03 i .img { background-image: url("../assets/img/couple.png"); }
-.map-road-choice.step03 .item.item04 i .img { background-image: url("../assets/img/family.png"); }
+.map-road-choice.step03 .item.item01 i .img { background-image: url("../../assets/img/wedding.png"); } 
+.map-road-choice.step03 .item.item02 i .img { background-image: url("../../assets/img/teammate.png"); } 
+.map-road-choice.step03 .item.item03 i .img { background-image: url("../../assets/img/couple.png"); }
+.map-road-choice.step03 .item.item04 i .img { background-image: url("../../assets/img/family.png"); }
 
 .map-road-choice .item input:checked + i { border-width: 3px; border-style: solid; border-color: #d61d2a; color: #d61d2a; }
 .map-road-choice .item i em { display: block; font-family: Moebius; font-size: 16px; color: #666; }
