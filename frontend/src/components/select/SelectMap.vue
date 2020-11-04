@@ -521,7 +521,7 @@
             </div>
             <div class="align-area">
               <div class="center-area">
-                <a href="javascript:history.go(-1)" class="btn round big gray">이전</a>
+                <a href="#" class="btn round big gray" in="btnPrev" @click="prev">이전</a>
                 <a href="#" class="btn round big red" id="btnNext" @click="next">다음</a>
               </div>
             </div>
@@ -554,6 +554,9 @@
       next(){
         this.$emit('next', this.loc);
         console.log(this.loc);
+      },
+      prev(){
+        this.$emit('prev');
       }
     },
   };

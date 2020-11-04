@@ -58,7 +58,7 @@
             <div class="align-area">
                 <div class="center-area">
                     <a href="#" class="btn round big gray" @click="prev">이전</a>
-                    <a href="#" class="btn round big red" id="btnNext" @click="next">다음</a>
+                    <a href="#" class="btn round big red" id="btnNext" @click="next">결과보기</a>
                 </div>
             </div>
         </div>
@@ -68,10 +68,12 @@
 export default {
     methods: {
         prev(){
+            console.log(this.$emit('prev'));
             this.$emit('prev');
         },
         next(){
             var p = document.querySelector("input[name=forWho]:checked").value;
+            
             this.$emit('next', p);
         }
     },

@@ -17,6 +17,8 @@ import storeDetail from "../components/stores/Detail.vue"
 
 import reviewWrite from "../components/review/Write.vue"
 
+//reservation
+import reserveMap from "../components/reserve/ReserveMap.vue";
 
 Vue.use(BootstrapVue)
 Vue.use(Vuex)
@@ -98,6 +100,11 @@ const routes = [
     }),
     name: "reviewWrite",
     component: reviewWrite,
+  },
+  {
+    path: "/reserve/selectMap",
+    name: "reserveMap",
+    component: reserveMap,
   },
 ];
 

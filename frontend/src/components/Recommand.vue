@@ -56,21 +56,21 @@ export default {
     },
     methods: {
         locationNext(loc){
-            this.selectType = 1;
+            this.selectType = 2;
             this.location = loc;
         },
         infoNext(){
             this.selectType = 2;
         },
         infoPrev(){
-            this.selectType = 1;
+            this.selectType = 0;
         },
         purposeNext(pur){
             this.selectType = 3;
             this.purpose = pur*1;
         },
         purposePrev(){
-            this.selectType = 2;
+            this.selectType = 0;
             this.purpose = 0;
         }
     },
