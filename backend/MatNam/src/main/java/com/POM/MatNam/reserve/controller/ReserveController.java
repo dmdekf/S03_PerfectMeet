@@ -4,11 +4,11 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.POM.MatNam.reserve.dto.ReserveList;
-import com.POM.MatNam.reserve.dto.ReserveListRequestDTO;
 import com.POM.MatNam.reserve.dto.ReserveWait;
 import com.POM.MatNam.reserve.dto.ReserveWaitRequestDTO;
 import com.POM.MatNam.reserve.service.ReserveService;
@@ -144,7 +143,7 @@ public class ReserveController {
 	public Object updateReserveList(@Valid @RequestBody ReserveList request, @RequestHeader(value="nickname", required =true)String nickname) {
 		ResponseEntity<BasicResponse> response = null;
 		Map<String, Object>errors = new HashMap<>();
-		Object list = reserveService.getList(request.getStore_id(), request.getReserve_date(), request.getNickname());
+		Object list = reserveService.getListById(request.getId());
 		// 예약 리스트가 존재 하는지 여부 확인
 		if(!list.equals("notFound")) {
 			// 예약리스트가 존재 할 경우 해당 예약리스트를 변경 할 수 있는 유저인지 확인
@@ -180,16 +179,16 @@ public class ReserveController {
 	public Object updateReserveWait(@Valid @RequestBody ReserveWait request, @RequestHeader(value="nickname", required =true)String nickname) {
 		ResponseEntity<BasicResponse> response = null;
 		Map<String, Object>errors = new HashMap<>();
-		Object wait = reserveService.getWait(request.getStore_id(), request.getReserve_date(), nickname);
+		Object wait = reserveService.getWaitById(request.getId());
 		// 예약 요청이 존재 하는지 여부 확인
 		if(!wait.equals("notFound")) {
 			// 예약리스트가 존재 할 경우 해당 예약리스트를 변경 할 수 있는 유저인지 확인
-			if(((ReserveList)wait).getNickname().equals(nickname)) {
+			if(((ReserveWait)wait).getNickname().equals(nickname)) {
 				final BasicResponse result = new BasicResponse();
 				
-				((ReserveList)wait).setReserve_date(request.getReserve_date());
-				((ReserveList)wait).setPeople_num(request.getPeople_num());
-				reserveService.updateReservationList((ReserveList)wait);
+				((ReserveWait)wait).setReserve_date(request.getReserve_date());
+				((ReserveWait)wait).setPeople_num(request.getPeople_num());
+				reserveService.updateReservationWait((ReserveWait)wait);
 				result.status = "S-200";
 				result.message = "예약 요청 정보 변경 완료";
 				response = new ResponseEntity<>(result, HttpStatus.OK);
@@ -214,7 +213,7 @@ public class ReserveController {
 	
 	@DeleteMapping("/removeList")
 	@ApiOperation(value = "예약 리스트 제거")
-	public Object deleteList(@RequestParam Long store_id, @RequestParam LocalDateTime reserve_time, 
+	public Object deleteList(@RequestParam Long store_id, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)	LocalDateTime reserve_time, 
 			@RequestHeader(value="nickname", required =true)String nickname) {
 		ResponseEntity<BasicResponse> response = null;
 		Map<String, Object> errors = new HashMap<>();
@@ -245,15 +244,15 @@ public class ReserveController {
 	
 	@DeleteMapping("/removeWait")
 	@ApiOperation(value = "예약 요청 제거")
-	public Object deleteWait(@RequestParam Long store_id, @RequestParam LocalDateTime reserve_time, 
+	public Object deleteWait(@RequestParam Long store_id, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime reserve_time, 
 			@RequestHeader(value="nickname", required =true)String nickname) {
 		ResponseEntity<BasicResponse> response = null;
 		Map<String, Object> errors = new HashMap<>();
 		Object wait = reserveService.getWait(store_id, reserve_time, nickname);
 		if(!wait.equals("notFound")) {
-			if(((ReserveList)wait).getNickname().equals(nickname)) {
+			if(((ReserveWait)wait).getNickname().equals(nickname)) {
 				final BasicResponse result = new BasicResponse();
-				reserveService.deleteReservationWait(((ReserveList)wait).getId());
+				reserveService.deleteReservationWait(((ReserveWait)wait).getId());
 				result.status = "S-200";
 				result.message = "예약 요청 삭제 완료";
 				response = new ResponseEntity<>(result, HttpStatus.OK);
