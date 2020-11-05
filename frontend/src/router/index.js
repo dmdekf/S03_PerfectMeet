@@ -17,7 +17,12 @@ import storeDetail from "../components/stores/Detail.vue"
 
 import reviewWrite from "../components/review/Write.vue"
 
+<<<<<<< HEAD
 import scheduler from "../components/reservation/Scheduler.vue"
+=======
+//reservation
+import reserveMap from "../components/reserve/ReserveMap.vue";
+>>>>>>> b971f29f1d325971b386fd654afd3f54d1e4528d
 
 Vue.use(BootstrapVue)
 Vue.use(Vuex)
@@ -101,11 +106,18 @@ const routes = [
     component: reviewWrite,
   },
   {
+<<<<<<< HEAD
     path: "/reserve/scheduler",
     name: "scheduler",
     component: scheduler,
   },
   
+=======
+    path: "/reserve/selectMap",
+    name: "reserveMap",
+    component: reserveMap,
+  },
+>>>>>>> b971f29f1d325971b386fd654afd3f54d1e4528d
 ];
 
 const router = new VueRouter({

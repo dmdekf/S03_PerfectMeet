@@ -32,18 +32,18 @@
           </div>
       </template>
   </div>
-</template>
+</template> 
 
 <script>
-import SelectMap from '@/components/SelectMap.vue';
-import SelectUserInfo from '@/components/SelectUserInfo.vue';
-import SelectUserPurpose from '@/components/SelectUserPurpose.vue';
-import Result from '@/components/Result.vue';
+import SelectMap from '@/components/select/SelectMap.vue';
+import SelectUserInfo from '@/components/select/SelectUserInfo.vue';
+import SelectUserPurpose from '@/components/select/SelectUserPurpose.vue';
+import Result from '@/components/select/Result.vue';
 
 export default {
     components:{
         SelectMap,
-        SelectUserInfo,
+        SelectUserInfo, 
         SelectUserPurpose,
         Result
     },
@@ -56,21 +56,21 @@ export default {
     },
     methods: {
         locationNext(loc){
-            this.selectType = 1;
+            this.selectType = 2;
             this.location = loc;
         },
         infoNext(){
             this.selectType = 2;
         },
         infoPrev(){
-            this.selectType = 1;
+            this.selectType = 0;
         },
         purposeNext(pur){
             this.selectType = 3;
             this.purpose = pur*1;
         },
         purposePrev(){
-            this.selectType = 2;
+            this.selectType = 0;
             this.purpose = 0;
         }
     },
