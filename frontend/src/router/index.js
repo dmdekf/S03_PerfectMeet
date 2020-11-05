@@ -16,6 +16,10 @@ import boardDetail from "../components/board/Detail.vue";
 import storeDetail from "../components/stores/Detail.vue"
 
 import reviewWrite from "../components/review/Write.vue"
+
+//reservation
+import reserveMap from "../components/reserve/ReserveMap.vue";
+
 Vue.use(BootstrapVue)
 Vue.use(Vuex)
 Vue.use(VueRouter)
@@ -97,7 +101,11 @@ const routes = [
     name: "reviewWrite",
     component: reviewWrite,
   },
-  
+  {
+    path: "/reserve/selectMap",
+    name: "reserveMap",
+    component: reserveMap,
+  },
 ];
 
 const router = new VueRouter({

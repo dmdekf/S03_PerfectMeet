@@ -5,6 +5,7 @@
       app
     >
       <v-list dense>
+
         <v-list-item link @click="$router.push('/')">>
           <v-list-item-action>
             <v-icon>mdi-home</v-icon>
@@ -13,6 +14,7 @@
             <v-list-item-title>Home</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+        
         <v-list-item link @click="$router.push('/user/selectMap')" >
           <v-list-item-action>
             <v-icon>mdi-food</v-icon>
@@ -21,6 +23,16 @@
             <v-list-item-title>restruant</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+         
+        <v-list-item link @click="$router.push('/reserve/selectMap')" >
+          <v-list-item-action>
+            <v-icon>mdi-clipboard-list-outline</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>reservation</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+
          <v-list-item link @click="$router.push('/board/notice')">
           <v-list-item-action>
             <v-icon>mdi-star</v-icon>
@@ -91,8 +103,6 @@
       </v-col>
     </v-footer>
     
-    <div class = "blank">
-    </div>
 
   </v-app>
 </template>
@@ -116,8 +126,9 @@ export default {
     userProfile(){
       const nickname = this.$store.state.nickname
             this.$router.push(`/user/profile/${nickname}`);
-        },
+      },
   }
+  
 }
 </script>
 
@@ -132,5 +143,11 @@ export default {
 #footer a {
   color:white; 
 }
-
+@font-face {
+  font-family: MaplestoryLight;
+  src:url('../src/assets/font/Maplestory Light.ttf');
+}
+body {
+  font-family: MaplestoryLight !important;
+}
 </style>

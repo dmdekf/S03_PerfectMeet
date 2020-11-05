@@ -18,8 +18,13 @@ import { mapState, mapActions } from 'vuex'
 export default { 
     methods: { 
         ...mapActions(['getBoardLists']),
+
         writeClick() {
-             this.$router.push('/board/write')
+            if(this.nickname == "admin"){
+                this.$router.push('/board/write')
+            }else{
+                alert("관리자가 아닙니다.");
+            }
         },
         showDetail(item){
             console.log(item.id)
@@ -27,7 +32,7 @@ export default {
         }
     },
     computed:{
-        ...mapState(['board_lists'])
+        ...mapState(['board_lists','nickname'])
     },
     data () { 
         return { 

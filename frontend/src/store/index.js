@@ -68,27 +68,29 @@ export default new Vuex.Store({
         })
         .catch((err) => console.log(err.response.data));
     },
-    signup(signupData) {
-      console.log(signupData)
+    signup({ getters },signupData) {
+      console.log(getters);
+      console.log(signupData);
       axios({
         method: "post",
         url: SERVER.URL + "/user",
         data: {
+          age:20,
           email: signupData.email,
-          password: signupData.password,
+          gender:true,
           nickname: signupData.nickname,
+          password: signupData.password,
         },
       })
         .then((res) => {
           if (res.data.status) {
-            var as = 1;
-            console.log(as);
+            alert("인증 이메일이 전송되었습니다. 메일을 확인해주세요!")
+            this.$router.push("/");
           }
-          alert("인증 이메일이 전송되었습니다. 메일을 확인해주세요!")
-          this.$router.push("/");
         })
         .catch((err) => console.log(err.response.data));
     },
+
     login({ commit, getters }, loginData) {
       console.log(loginData);
       axios({
