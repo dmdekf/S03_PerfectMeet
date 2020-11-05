@@ -91,8 +91,6 @@
       </v-col>
     </v-footer>
     
-    <div class = "blank">
-    </div>
 
   </v-app>
 </template>
@@ -116,8 +114,9 @@ export default {
     userProfile(){
       const nickname = this.$store.state.nickname
             this.$router.push(`/user/profile/${nickname}`);
-        },
+      },
   }
+  
 }
 </script>
 
@@ -136,7 +135,6 @@ export default {
   font-family: MaplestoryLight;
   src:url('../src/assets/font/Maplestory Light.ttf');
 }
-
 body {
   font-family: MaplestoryLight !important;
 }

@@ -16,6 +16,9 @@ import boardDetail from "../components/board/Detail.vue";
 import storeDetail from "../components/stores/Detail.vue"
 
 import reviewWrite from "../components/review/Write.vue"
+
+import scheduler from "../components/reservation/Scheduler.vue"
+
 Vue.use(BootstrapVue)
 Vue.use(Vuex)
 Vue.use(VueRouter)
@@ -96,6 +99,11 @@ const routes = [
     }),
     name: "reviewWrite",
     component: reviewWrite,
+  },
+  {
+    path: "/reserve/scheduler",
+    name: "scheduler",
+    component: scheduler,
   },
   
 ];
