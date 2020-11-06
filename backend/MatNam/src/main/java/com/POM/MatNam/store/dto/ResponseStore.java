@@ -13,14 +13,22 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ResponseStore {
-	private Long id;
+private Long id;
 	
 	private String name;
 	
-	private String address;
+	private String category;
 	
 	private String tel;
 	
-	private String image;
+	private String address;
+	
+	private String time;
+	
+	private String convenience;
+	
+	private String menu;
+	
+	private String purpose;
 	
 }

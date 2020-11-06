@@ -35,18 +35,14 @@ public class StoreController {
 	
 	@GetMapping
 	@ApiOperation(value = "음식점 추천")
-	public Object getLikeStores(@RequestParam String loc, @RequestParam int pur) {
+	public Object getLikeStores(@RequestParam String loc, @RequestParam String pur) {
 		ResponseEntity<BasicResponse> response = null;
 		Map<String, Object> errors = new HashMap<>();
 		List<Store> storeList = storeService.recommand(loc, pur);
-		List<ResponseStore> resList = new ArrayList<>();
-		for(int i=0;i<3;i++) {
-			resList.add(new ResponseStore(storeList.get(i).getId(),storeList.get(i).getName(),storeList.get(i).getAddress(),storeList.get(i).getTel(),storeList.get(i).getImage()));
-		}
 		final BasicResponse result = new BasicResponse();
 		result.status = "S-200";
 		result.message = "음식점 추천 목록 반환.";
-		result.data = resList;
+		result.data = storeList;
 		response = new ResponseEntity<>(result, HttpStatus.OK);
 		return response;
 	}

@@ -10,6 +10,6 @@ import org.springframework.data.repository.query.Param;
 import com.POM.MatNam.store.dto.Store;
 
 public interface StoreDao extends JpaRepository<Store, Long>{
-	@Query(value="select * from store where address like %:location% order by :sort1 desc",nativeQuery = true)
-	List<Store> findbyloc(@Param("location")String location,@Param("sort1")int sort1);
+	@Query(value="select * from store where address like %:location% and purpose = :pur order by 1",nativeQuery = true)
+	List<Store> findbyloc(@Param("location")String location,@Param("pur")String pur);
 }
