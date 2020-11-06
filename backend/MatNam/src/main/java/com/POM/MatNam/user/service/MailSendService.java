@@ -72,10 +72,6 @@ public class MailSendService {
         Session session = getSetting();
         String setfrom = MyEmail;
         String htmlStr = "<h2>안녕하세요 완벽한 맛남 입니다!</h2><br><br>" + "<h3>" + nickname + "님</h3>"
-<<<<<<< HEAD
-=======
-        																					//j3a507.p.ssafy.io
->>>>>>> de097c7887f101a3813d79c0d1b0943b5137385d
                 + "<p>인증하기 버튼을 누르시면 인증이 완료되어 로그인이 가능해 집니다 : " + "<a href='http://localhost:8399/user/auth?id=" + id
                 + "&key=" + key + "'>인증하기</a></p>" + "(혹시 잘못 전달된 메일이라면 이 이메일을 무시하셔도 됩니다)";
 

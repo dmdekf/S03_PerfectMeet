@@ -95,12 +95,12 @@ public class DibsController {
 		Map<String, Object> errors = new HashMap<>();
 		User user = userService.selectByNickname(nickname);
 		List<Dibs> list = dibsService.dibsList(user.getId());
-		List<ResponseStore> storeList  = new ArrayList<>();
+		List<Store> storeList  = new ArrayList<>();
 		for(Dibs dibs:list) {
 			long sid = dibs.getStoreId();
 			Optional<Store> s = storeDao.findById(sid);
 			Store store = s.get();
-			storeList.add(new ResponseStore(store.getId(),store.getName(),store.getAddress(),store.getTel(),store.getImage()));
+			storeList.add(store);
 		}
 		final BasicResponse result = new BasicResponse();
 		result.status = "S-200";

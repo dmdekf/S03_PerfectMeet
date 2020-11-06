@@ -16,8 +16,8 @@ public class StoreService {
 	@Autowired
 	private StoreDao storeDao;
 	
-	public List<Store> recommand(String location, int sort){
-		return storeDao.findbyloc(location,sort);
+	public List<Store> recommand(String location, String pur){
+		return storeDao.findbyloc(location,pur);
 	}
 	
 	public Store selectById(Long id){
