@@ -36,6 +36,7 @@ public class UserService {
 		user.setPassword(encrypted);
 		user.setAge(request.getAge());
 		user.setGender(request.isGender());
+		user.setStore_id(request.getStore_id());
 		user.setToken(key);
 		return authDao.save(user);
 	}

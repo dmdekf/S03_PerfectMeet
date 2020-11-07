@@ -9,13 +9,17 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.POM.MatNam.Board.DTO.Board;
 import com.POM.MatNam.dibs.dto.Dibs;
 import com.POM.MatNam.response.BasicResponse;
 import com.POM.MatNam.response.ErrorResponse;
@@ -34,18 +38,14 @@ public class StoreController {
 	
 	@GetMapping
 	@ApiOperation(value = "음식점 추천")
-	public Object getLikeStores(@RequestParam String loc, @RequestParam int pur) {
+	public Object getLikeStores(@RequestParam String loc, @RequestParam String pur) {
 		ResponseEntity<BasicResponse> response = null;
 		Map<String, Object> errors = new HashMap<>();
 		List<Store> storeList = storeService.recommand(loc, pur);
-		List<ResponseStore> resList = new ArrayList<>();
-		for(int i=0;i<3;i++) {
-			resList.add(new ResponseStore(storeList.get(i).getId(),storeList.get(i).getName(),storeList.get(i).getAddress(),storeList.get(i).getTel(),storeList.get(i).getImage()));
-		}
 		final BasicResponse result = new BasicResponse();
 		result.status = "S-200";
 		result.message = "음식점 추천 목록 반환.";
-		result.data = resList;
+		result.data = storeList;
 		response = new ResponseEntity<>(result, HttpStatus.OK);
 		return response;
 	}
@@ -70,6 +70,12 @@ public class StoreController {
 			response = new ResponseEntity<>(result, HttpStatus.OK);
 		}
 		return response;
+	}
+	@ApiOperation(value = "새로운 가게 정보를 입력한다. 그리고 DB입력 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
+	@PostMapping("/add")
+	public Store addNewStore(@RequestBody Store store) {
+
+		return storeService.addStore(store);
 	}
 	
 	private ErrorResponse setErrors(String status, String message, Map<String, Object> errors) {

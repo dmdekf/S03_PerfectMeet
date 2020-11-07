@@ -35,5 +35,8 @@ public class User {
 	private boolean gender;
 	
 	@Column
+	private Long store_id;
+	
+	@Column
 	private String profileImg;
 }

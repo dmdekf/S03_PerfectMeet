@@ -34,4 +34,7 @@ public class SignupRequestDTO {
     @ApiModelProperty(required = true)
     @NotNull
     boolean gender;
+    @ApiModelProperty(required = true)
+    
+    long store_id;
 }
