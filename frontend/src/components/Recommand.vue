@@ -51,7 +51,7 @@ export default {
         return {
             selectType: 0,
             location:"",
-            purpose:0,
+            purpose:"",
         }
     },
     methods: {
@@ -67,7 +67,7 @@ export default {
         },
         purposeNext(pur){
             this.selectType = 3;
-            this.purpose = pur*1;
+            this.purpose = pur;
         },
         purposePrev(){
             this.selectType = 0;

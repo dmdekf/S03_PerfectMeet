@@ -66,6 +66,11 @@
 </template> 
 <script>
 export default {
+    data: ()=>{
+      return{
+        pur:""
+      }
+    },
     methods: {
         prev(){
             console.log(this.$emit('prev'));
@@ -74,6 +79,7 @@ export default {
         next(){
             var p = document.querySelector("input[name=forWho]:checked").value;
             console.log(p);
+            
             this.$emit('next', p);
         }
     },

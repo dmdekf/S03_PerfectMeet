@@ -30,7 +30,7 @@
 
 <script>
 import axios from "axios";
-//import SERVER from "@/api/api";
+import SERVER from "@/api/api";
 export default {
     props:{
         loc:{
@@ -38,7 +38,7 @@ export default {
             required:true
         },
         pur:{
-            type:Number,
+            type:String,
             required:true
         }
     },
@@ -63,7 +63,8 @@ export default {
             this.$router.push(`/stores/detail/${id}`);
         },
         getStores() {
-            axios.get("http://localhost:8399/stores?loc="+this.loc+"&pur="+this.pur)
+            console.log(this.loc+" "+this.pur);
+            axios.get(SERVER.URL+"/stores?loc="+this.loc+"&pur="+this.pur)
             .then((res)=>{
                     if(res.data) {
                         console.log(res.data);
