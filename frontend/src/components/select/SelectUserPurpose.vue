@@ -6,7 +6,7 @@
             <div class="map-road-choice step03">
                     <div class="item item01">
                         <label for="forWho1">
-                            <input type="radio" id="forWho1" name="forWho" value="6">
+                            <input type="radio" id="forWho1" name="forWho" value="상견례">
                                 <i>
                                     <span class="img sex02"></span>
                                     <strong>
@@ -19,7 +19,7 @@
                     
                     <div class="item item02">
                         <label for="forWho2">
-                            <input type="radio" id="forWho2" name="forWho" value="7">
+                            <input type="radio" id="forWho2" name="forWho" value="회식">
                             <i>
                                 <span class="img"></span>
                                 <strong>
@@ -31,7 +31,7 @@
                 
                     <div class="item item03">
                         <label for="forWho3">
-                            <input type="radio" id="forWho3" name="forWho" value="8">
+                            <input type="radio" id="forWho3" name="forWho" value="데이트">
                                 <i>
                                 <span class="img"></span>
                                     <strong>
@@ -44,7 +44,7 @@
                     
                     <div class="item item04">
                         <label for="forWho4">
-                            <input type="radio" id="forWho4" name="forWho" value="9">
+                            <input type="radio" id="forWho4" name="forWho" value="가족모임">
                                 <i>
                                     <span class="img"></span>
                                     <strong>
@@ -73,7 +73,7 @@ export default {
         },
         next(){
             var p = document.querySelector("input[name=forWho]:checked").value;
-            
+            console.log(p);
             this.$emit('next', p);
         }
     },
