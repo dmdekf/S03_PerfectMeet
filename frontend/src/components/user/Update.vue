@@ -111,6 +111,9 @@ export default {
           axios({
                 method: "delete",
                 url: SERVER.URL+"/user",
+                headers:{
+                  nickname:this.nickname,
+                },
                 data: {
                     nickname:this.nickname
                 }
