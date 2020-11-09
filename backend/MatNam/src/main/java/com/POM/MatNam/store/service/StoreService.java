@@ -23,4 +23,7 @@ public class StoreService {
 	public Store selectById(Long id){
 		return storeDao.findById(id).orElse(null);
 	}
+	public Store addStore(Store store) {
+		return storeDao.save(store);
+	}
 }

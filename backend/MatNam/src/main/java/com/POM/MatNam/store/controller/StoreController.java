@@ -12,11 +12,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.POM.MatNam.Board.DTO.Board;
 import com.POM.MatNam.dibs.dto.Dibs;
 import com.POM.MatNam.response.BasicResponse;
 import com.POM.MatNam.response.ErrorResponse;
@@ -67,6 +70,12 @@ public class StoreController {
 			response = new ResponseEntity<>(result, HttpStatus.OK);
 		}
 		return response;
+	}
+	@ApiOperation(value = "새로운 가게 정보를 입력한다. 그리고 DB입력 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
+	@PostMapping("/add")
+	public Store addNewStore(@RequestBody Store store) {
+
+		return storeService.addStore(store);
 	}
 	
 	private ErrorResponse setErrors(String status, String message, Map<String, Object> errors) {
