@@ -58,8 +58,8 @@
                                         </v-col>
                                         <v-col v-show="allowSpaces" cols="12">
                                         <p>가게 주소 입력</p>
-                                        <p><input type="text" id="sample4_detailAddress" placeholder="가게 이름"  v-model="storeData.storename"></p>
-                                        <p><input type="number" id="sample4_extraAddress" placeholder="전화번호 ex)023334444" v-model="storeData.phone">
+                                        <p><input type="text" id="sample4_detailAddress" placeholder="가게 이름"  v-model="storeData.name"></p>
+                                        <p><input type="number" id="sample4_extraAddress" placeholder="전화번호 ex)023334444" v-model="storeData.tel">
                                         </p>
                                         <input type="button" @click="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
                                         <input type="text" id="sample4_postcode" placeholder="우편번호" >
@@ -152,8 +152,8 @@ export default {
         //주소 바꾸기
         url: SERVER.URL +"/storeinfo",
         data: {
-          storename:this.storeData.storename,
-          phone:this.storeData.phone,
+          name:this.storeData.name,
+          tel:this.storeData.tel,
           address:this.storeData.address,
         }
         })
@@ -214,8 +214,8 @@ export default {
     },
     storeData:{
       address:"",
-      phone:"", 
-      storename:""
+      tel:"", 
+      name:""
     },
     verify: "",
     key:"",

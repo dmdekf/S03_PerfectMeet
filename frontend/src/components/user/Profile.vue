@@ -41,6 +41,27 @@
         ></v-divider>
         </div>
       </v-list>
+      <v-list>
+          <div v-if="this.messages">
+            <v-list-item-icon justify="center">
+            <v-icon color="#DC143C" >mdi-heart</v-icon>
+            메시지 목록
+            </v-list-item-icon>
+        <v-divider></v-divider>
+            <v-list-item v-for="(msg, idx) in messages" 
+                
+                :key="idx">
+            <v-list-item-content>
+                <v-img src="like.image"></v-img>
+                <v-list-item-title class="mb-2">#{{idx+1}}. </v-list-item-title>
+                <v-list-item-subtitle>보낸사람 : {{ msg.sender }}</v-list-item-subtitle>
+                <v-list-item-subtitle>내용 : {{ msg.content }}</v-list-item-subtitle>
+            </v-list-item-content>          
+            </v-list-item>  
+            <v-divider
+        ></v-divider>
+        </div>
+      </v-list>
     <v-list>
         <v-list-item-icon justify="center">
             <v-icon color="indigo" class="mr-9">mdi-newspaper-variant-multiple-outline</v-icon>
@@ -88,6 +109,7 @@ export default {
             reviews:[],
             likes:[],
             profileImg:'',
+            messages:[],
         }
     },
     methods: {
@@ -124,11 +146,25 @@ export default {
                     this.likes = res.data.dibs           
                 })
                 .catch((err) => console.log(err.response.data));
-        }
+        },
+        getUsermessages() {
+            axios({
+                method: "get",
+                url: SERVER.URL+"/message/getReceiver",
+                data: {
+                    receiver:this.nickname
+                },
+            })
+                .then((res) => { 
+                    this.messages = res.data.result           
+                })
+                .catch((err) => console.log(err.response.data));
+        },
     },
     created() {
         this.getUserdata()
         this.getUserlikes()
+        this.getUsermessages()
             
     }
 }
