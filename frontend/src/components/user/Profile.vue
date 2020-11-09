@@ -121,7 +121,7 @@ export default {
             axios({
                 method: "get",
                 url: SERVER.URL+"/user",
-                data: {
+                params: {
                     nickname:this.nickname
                 },
             })
@@ -138,7 +138,7 @@ export default {
             axios({
                 method: "get",
                 url: SERVER.URL+"/dibs",
-                data: {
+                headers: {
                     nickname:this.nickname
                 },
             })
@@ -151,12 +151,13 @@ export default {
             axios({
                 method: "get",
                 url: SERVER.URL+"/message/getReceiver",
-                data: {
-                    receiver:this.nickname
+                params: {
+                   receiver : this.nickname,
                 },
             })
                 .then((res) => { 
-                    this.messages = res.data.result           
+                    console.log(res);
+                    this.messages = res.data.data.list;           
                 })
                 .catch((err) => console.log(err.response.data));
         },
