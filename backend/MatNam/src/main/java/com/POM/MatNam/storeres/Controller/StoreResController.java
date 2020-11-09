@@ -24,12 +24,13 @@ import com.POM.MatNam.Board.DTO.Board;
 import com.POM.MatNam.Board.Response.BasicResponse;
 import com.POM.MatNam.storeres.DAO.StoreResDao;
 import com.POM.MatNam.storeres.DTO.StoreRes;
+import com.POM.MatNam.storeres.DTO.StoreResRequest;
 
 import io.swagger.annotations.ApiOperation;
 
 @RestController
 @CrossOrigin(origins = { "*" })
-@RequestMapping("feature/storeres")
+@RequestMapping("/feature/storeres")
 public class StoreResController {
    @Autowired
    StoreResDao storeResDao;
@@ -58,7 +59,7 @@ public class StoreResController {
 //   }
 	
 	@ApiOperation(value = "모든 게시글의 정보를 반환한다.", response = List.class)
-	@GetMapping("list")
+	@GetMapping("/list")
 	public List<StoreRes> getStoreResList() throws Exception {
 		
 		List<StoreRes> list = storeResDao.findAll();
@@ -79,13 +80,18 @@ public class StoreResController {
 
 	@ApiOperation(value = "새로운 가게정보를 입력한다. 그리고 DB입력 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
 	@PostMapping("/write")
-	public Object addStoreRes(@RequestBody StoreRes storeres) {
-		return storeResDao.save(storeres);
+	public Object addStoreRes(@RequestBody StoreResRequest storeres) {
+		System.out.println("가게 정보 삽입 진입 성공");
+		StoreRes temp = new StoreRes();
+		temp.setAddress(storeres.getAddress());
+		temp.setName(storeres.getName());
+		temp.setTel(storeres.getTel());
+		return storeResDao.save(temp);
 		
 	}
 
 	@ApiOperation(value = "가게 아이디에 해당하는 정보를 삭제한다.", response = String.class)
-	@DeleteMapping("delete/{id}")
+	@DeleteMapping("/delete/{id}")
 	public Optional<StoreRes> deleteStoreRes(@PathVariable("id") long id) {
 		Optional<StoreRes> storeId = storeResDao.findById(id);
 
