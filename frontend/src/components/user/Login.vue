@@ -150,7 +150,7 @@ export default {
       axios({
         method: "post",
         //주소 바꾸기
-        url: SERVER.URL +"/storeinfo",
+        url: SERVER.URL +"/feature/storeres/write",
         data: {
           name:this.storeData.name,
           tel:this.storeData.tel,
@@ -178,7 +178,6 @@ export default {
     loginvalidate(loginData) {
       if (this.$refs.loginForm.validate()) {
         this.login(loginData)
-        this.sendstoreinfo()
       }
       else {
         alert("잘못된 접근입니다.")
@@ -187,6 +186,7 @@ export default {
     signupvalidate(signupData) {
       console.log(signupData)
       this.signup(signupData)
+      this.sendstoreinfo()
     },
     reset() {
       this.$refs.form.reset();
