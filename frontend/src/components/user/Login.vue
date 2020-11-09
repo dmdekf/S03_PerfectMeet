@@ -58,12 +58,13 @@
                                         </v-col>
                                         <v-col v-show="allowSpaces" cols="12">
                                         <p>가게 주소 입력</p>
-                                        <input type="text" id="sample4_postcode" placeholder="우편번호">
+                                        <p><input type="text" id="sample4_detailAddress" placeholder="가게 이름"  v-model="storeData.storename"></p>
+                                        <p><input type="number" id="sample4_extraAddress" placeholder="전화번호 ex)023334444" v-model="storeData.phone">
+                                        </p>
                                         <input type="button" @click="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
-                                        <input type="text" id="sample4_roadAddress" placeholder="도로명주소">
+                                        <input type="text" id="sample4_postcode" placeholder="우편번호" >
+                                        <input type="text" id="sample4_roadAddress" placeholder="도로명주소" v-model="storeData.address">
                                         <span id="guide" style="color:#999;display:none"></span>
-                                        <input type="text" id="sample4_detailAddress" placeholder="상세주소">
-                                        <input type="text" id="sample4_extraAddress" placeholder="참고항목">
                                         </v-col>
                                     </v-row>
                                 </v-form>
@@ -144,6 +145,22 @@ export default {
         }).open();
     },
     ...mapActions(['login','signup']),
+    sendstoreinfo() {
+      if (this.storeData) {
+      axios({
+        method: "post",
+        //주소 바꾸기
+        url: SERVER.URL +"/storeinfo",
+        data: {
+          storename:this.storeData.storename,
+          phone:this.storeData.phone,
+          address:this.storeData.address,
+        }
+        })
+      } else {
+        pass
+      }
+    },
     onUpload() {
       console.log(this.imagefile.name)
       axios({
@@ -161,6 +178,7 @@ export default {
     loginvalidate(loginData) {
       if (this.$refs.loginForm.validate()) {
         this.login(loginData)
+        this.sendstoreinfo()
       }
       else {
         alert("잘못된 접근입니다.")
@@ -193,6 +211,11 @@ export default {
       email: "",
       password: "",
       verify:""
+    },
+    storeData:{
+      address:"",
+      phone:"", 
+      storename:""
     },
     verify: "",
     key:"",
