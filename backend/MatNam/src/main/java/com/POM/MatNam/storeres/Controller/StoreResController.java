@@ -73,8 +73,8 @@ public class StoreResController {
 	}
 	
 	@ApiOperation(value ="상세 보기")
-	@GetMapping("/detail")
-	public Object getDeatilRes(@RequestParam Long id) {
+	@GetMapping("/detail/{id}")
+	public Object getDeatilRes(@PathVariable("id") Long id) {
 		ResponseEntity<BasicResponse> response = null;
 		Map<String, Object>errors = new HashMap<>();
 		
