@@ -11,7 +11,7 @@
 								시작하기
 							</v-btn>
 							
-							<v-btn class="my-3" color="red white--text"  elevation="12" rounded to="/reserve/selectMap">
+							<v-btn class="my-3" color="red white--text"  elevation="12" rounded to="/reserve/result">
 								예약하기
 							</v-btn>
 						</span>
