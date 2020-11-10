@@ -24,7 +24,7 @@
           </v-list-item-content>
         </v-list-item>
          
-        <v-list-item link @click="$router.push('/reserve/selectMap')" >
+        <v-list-item link @click="$router.push('/reserve/result')" >
           <v-list-item-action>
             <v-icon>mdi-clipboard-list-outline</v-icon>
           </v-list-item-action>

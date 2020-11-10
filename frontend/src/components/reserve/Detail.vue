@@ -153,7 +153,7 @@ export default {
         },
         getStore() {
             axios
-            .get(SERVER.URL +"/feature/storeres/list/"+this.id)
+            .get(SERVER.URL +"/feature/storeres/detail/"+this.id)
             .then((res) => {
                 console.log(res.data)
                 this.name = res.data.data.name;
@@ -184,7 +184,7 @@ export default {
         this.getStore()
         this.getLike()
         this.getReviews()
-        },
+    },
 }
 </script>
 
