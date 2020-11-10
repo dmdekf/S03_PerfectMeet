@@ -17,4 +17,7 @@ public class StoreResRequest {
 	
 	@ApiModelProperty(required = true)
 	String tel;
+	
+	@ApiModelProperty(required = true)
+	String nickname;
 }
