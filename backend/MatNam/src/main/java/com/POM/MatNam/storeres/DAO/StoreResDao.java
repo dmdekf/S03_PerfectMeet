@@ -10,7 +10,6 @@ import com.POM.MatNam.storeres.DTO.StoreRes;
 
 public interface StoreResDao extends JpaRepository<StoreRes, Long> {
 	//List<Board> findBoardBySubject(String title);
-	
 	Optional<StoreRes> findById(long id);
 	Optional<StoreRes> deleteById(long id);  
 }

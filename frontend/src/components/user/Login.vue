@@ -193,6 +193,7 @@ export default {
       console.log(signupData)
       this.signup(signupData)
       this.sendstoreinfo()
+      
     },
     reset() {
       this.$refs.form.reset();
