@@ -44,7 +44,7 @@
       <v-list>
           <div v-if="this.messages">
             <v-list-item-icon justify="center">
-            <v-icon color="#DC143C" >mdi-heart</v-icon>
+            <v-icon  >mdi-android-messages</v-icon>
             메시지 목록
             </v-list-item-icon>
         <v-divider></v-divider>
@@ -120,9 +120,9 @@ export default {
         getUserdata() {
             axios({
                 method: "get",
-                url: SERVER.URL+"/user",
-                data: {
-                    nickname:this.nickname
+                url: SERVER.URL+`/user?nickname=${this.nickname}`,
+                headers:{
+                    nickname: this.nickname
                 },
             })
                 .then((res) => { 
@@ -138,20 +138,20 @@ export default {
             axios({
                 method: "get",
                 url: SERVER.URL+"/dibs",
-                data: {
-                    nickname:this.nickname
+                headers:{
+                    nickname: this.nickname
                 },
             })
                 .then((res) => { 
-                    this.likes = res.data.dibs           
+                    this.likes = res.data.data          
                 })
                 .catch((err) => console.log(err.response.data));
         },
         getUsermessages() {
             axios({
                 method: "get",
-                url: SERVER.URL+"/message/getReceiver",
-                data: {
+                url: SERVER.URL+`/message/getReceiver?receiver=${this.nickname}`,
+                headers: {
                     receiver:this.nickname
                 },
             })

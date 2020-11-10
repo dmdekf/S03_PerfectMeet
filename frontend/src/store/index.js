@@ -85,7 +85,7 @@ export default new Vuex.Store({
         .then((res) => {
           if (res.data.status) {
             alert("인증 이메일이 전송되었습니다. 메일을 확인해주세요!")
-            this.$router.push("/");
+            router.push({ name: "MAIN" });
           }
         })
         .catch((err) => console.log(err.response.data));

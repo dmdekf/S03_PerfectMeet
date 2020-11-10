@@ -127,25 +127,25 @@ export default {
         likeStore(){
             axios({
                 method: "post",
-                url : SERVER.URL +"/dibs",
-                data:{
+                url : SERVER.URL +`/dibs?sid=${this.id}`,
+                headers:{
                     nickname:this.$store.state.nickname,
-                    sid:this.id
                 }                    
             }).then(
-                    this.likestatus = !this.likestatus                        
+                    this.likestatus = !this.likestatus,
+                    alert("찜 했습니다")                        
                 )
         },
         unlikeStore(){
             axios({
                 method: "delete",
-                url : SERVER.URL +"/dibs",
-                data:{
+                url : SERVER.URL +`/dibs?sid=${this.id}`,
+                headers:{
                     nickname:this.$store.state.nickname,
-                    sid:this.id
                 }                    
             }).then(
-                    this.likestatus = !this.likestatus                        
+                    this.likestatus = !this.likestatus,
+                    alert('찜을 해제했습니다.')                        
                 )
         }, 
         userProfile(nickname) {
@@ -164,8 +164,12 @@ export default {
             .catch((err) => console.error(err));
         },
         getLike() {
-            axios
-            .get(SERVER.URL +"/dibs/"+this.id)
+            axios({
+                method: "get",
+                url : SERVER.URL +`/dibs/${this.id}`,
+                headers:{
+                    nickname:this.$store.state.nickname}
+            })
             .then((res) => {
                 this.likestatus = res.data
             })
