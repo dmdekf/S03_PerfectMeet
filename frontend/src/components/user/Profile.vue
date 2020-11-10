@@ -156,7 +156,8 @@ export default {
                 },
             })
                 .then((res) => { 
-                    this.messages = res.data.result           
+                    console.log(res);
+                    this.messages = res.data.data.list;           
                 })
                 .catch((err) => console.log(err.response.data));
         },

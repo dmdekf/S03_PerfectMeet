@@ -160,6 +160,7 @@ export default {
           name:this.storeData.name,
           tel:this.storeData.tel,
           address:this.storeData.address,
+          nickname:this.nickname,
         }
         })
       } else {
