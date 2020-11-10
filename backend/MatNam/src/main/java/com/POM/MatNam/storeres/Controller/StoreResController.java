@@ -71,17 +71,14 @@ public class StoreResController {
 		return list;
 	}
 
-//	@ApiOperation(value = "게시글번호에 해당하는 게시글의 정보를 반환한다.", response = StoreResController.class)
-//	@GetMapping("/list/{id}")
+//	@ApiOperation(value = "가게번호에 해당하는 게시글의 정보를 반환한다.", response = String.class)
+//	@GetMapping("/list/{id}") 
 //	public Object detailBoard(@PathVariable int id) {
 //		System.out.println(id);
-//		Optional<StoreRes> board = boardDao.findById(id);
+//		Optional<StoreRes> board = storeResDao.findById(id);
 //
-//			
-//			return board;
-//
-//		
-//	}
+//		return board;
+//	}  
 
 	@ApiOperation(value = "새로운 가게정보를 입력한다.", response = String.class)
 	@PostMapping("/write")
@@ -96,7 +93,7 @@ public class StoreResController {
 		
 		User s_User = userService.selectByNickname(storeres.getNickname());
 		
-		if(s_User==null) {
+		if(s_User==null) { 
 			errors.put("field", "addStoreUser");
 			errors.put("nickname", storeres.getNickname());
 			final ErrorResponse result = setErrors("E-4700", "가게 주인으로 등록하고자 하는 유저가 없습니다.", errors);
