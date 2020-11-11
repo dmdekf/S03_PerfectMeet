@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.PastOrPresent;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -24,7 +23,6 @@ public class ReserveWaitRequestDTO {
 	String nickname;
 	
 	@ApiModelProperty(required = true)
-	@PastOrPresent
 	LocalDateTime date;
 	
 	@ApiModelProperty(required = true)

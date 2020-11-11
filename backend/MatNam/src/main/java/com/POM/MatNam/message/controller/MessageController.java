@@ -129,7 +129,7 @@ public class MessageController {
 	
 	@PutMapping("/readMessage")
 	@ApiOperation(value ="메세지 읽기")
-	public Object readMessage(@RequestParam Long message_id) {
+	public Object readMessage(@RequestParam(value="message_id") Long message_id) {
 		ResponseEntity<BasicResponse> response = null;
 		Map<String, Object>errors = new HashMap<>();
 		boolean readResult = messageService.readMessage(message_id);
@@ -150,7 +150,7 @@ public class MessageController {
 	
 	@DeleteMapping("/deleteMessage")
 	@ApiOperation(value ="메세지 읽기")
-	public Object deleteMessage(@RequestParam Long message_id) {
+	public Object deleteMessage(@RequestParam(value="message_id") Long message_id) {
 		ResponseEntity<BasicResponse> response = null;
 		Map<String, Object>errors = new HashMap<>();
 		boolean deleteResult = messageService.deleteMessage(message_id);
