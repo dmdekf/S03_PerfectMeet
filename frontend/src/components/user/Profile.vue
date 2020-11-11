@@ -62,6 +62,28 @@
         ></v-divider>
         </div>
       </v-list>
+       <v-list>
+          <div v-if="this.reserveList">
+            <v-list-item-icon justify="center">
+            <v-icon  >mdi-android-messages</v-icon>
+            예약 목록
+            </v-list-item-icon>
+        <v-divider></v-divider>
+            <v-list-item v-for="(rsl, idx) in reserveList" 
+                
+                :key="idx">
+            <v-list-item-content>
+                <v-img src="like.image"></v-img>
+                <v-list-item-title class="mb-2">#{{idx+1}}. </v-list-item-title>
+                <v-list-item-subtitle>가게이름 : {{ rsl.store_name }}</v-list-item-subtitle>
+                <v-list-item-subtitle>예약일자 : {{ getFormatDate(rsl.reserve_date) }}</v-list-item-subtitle>
+                <v-list-item-subtitle>예약인원 : {{ rsl.people_num }}</v-list-item-subtitle>
+            </v-list-item-content>          
+            </v-list-item>  
+            <v-divider
+        ></v-divider>
+        </div>
+      </v-list>
     <v-list>
         <v-list-item-icon justify="center">
             <v-icon color="indigo" class="mr-9">mdi-newspaper-variant-multiple-outline</v-icon>
@@ -94,6 +116,8 @@
 import axios from "axios";
 // import router from "@/router";
 import SERVER from "@/api/api";
+import { formatDate } from '@/util/format';
+
 export default {
     name:"Profile",
     props:{
@@ -110,6 +134,7 @@ export default {
             likes:[],
             profileImg:'',
             messages:[],
+            reserveList:[],
         }
     },
     methods: {
@@ -161,11 +186,31 @@ export default {
                 })
                 .catch((err) => console.log(err.response.data));
         },
+        getUserReserves(){
+            axios({
+                method:"get",
+                url: SERVER.URL+'/reserve/userReserveList',
+                params:{
+                    nickname: this.nickname
+                },
+            })
+            .then((res) =>{
+                console.log("예약 목록")
+                console.log(res);
+                this.reserveList = res.data.data.list;
+
+            })
+            .catch((err) => console.log(err));
+        },
+        getFormatDate(date){
+            return formatDate(date, 'YY.MM.DD HH:mm');
+        }
     },
     created() {
         this.getUserdata()
         this.getUserlikes()
         this.getUsermessages()
+        this.getUserReserves()
             
     }
 }
