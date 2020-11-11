@@ -40,6 +40,11 @@
           <v-list-item-content>
             <v-list-item-title>Notice</v-list-item-title>
           </v-list-item-content>
+          <v-list-item v-if="this.$store.state.store_id" link @click="$router.push('/user/Storemanagement')">
+            <v-list-item-content>
+            <v-list-item-title>예약 관리</v-list-item-title>
+          </v-list-item-content>
+          </v-list-item>
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
