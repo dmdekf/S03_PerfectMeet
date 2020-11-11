@@ -15,7 +15,6 @@
             <v-row>
             </v-row>
             <v-row>
-            <v-btn color="amber" small dark fab @click="share(this.name)"><v-icon dark>mdi-share-variant</v-icon></v-btn>  
              <!-- 좋아요 버튼-->
             <div>
                 <div v-if="this.likestatus">
@@ -37,48 +36,25 @@
                     </v-btn>
                 </div>
             </div>
+                <v-btn class="mx-2"
+                fab
+                dark
+                small
+                @click="handleClickButton"><v-icon >mdi-calendar</v-icon></v-btn>
+                <app-my-modal
+                    title="예약 정보를 입력해주세요."
+
+                    :visible.sync="visible">
+                <div>
+                    This is modal body
+                </div>
+                </app-my-modal>
             </v-row>
                 
             </v-row>
             </v-list-item-content>
             </v-list-item>
-        </v-card-title>
-        
-        <v-card-text >
-            <v-list>
-                <v-list-item-icon justify="center">
-                <v-icon color="amber darken-3" class="mr-9">mdi-newspaper-variant-multiple-outline</v-icon>
-                    리뷰 목록
-                </v-list-item-icon>
-                <v-btn class="mx-2 mt-1" dark color="indigo" v-on:click="writeReview(this.id)">
-                        <v-icon dark>mdi-pencil</v-icon>
-                        리뷰 쓰기
-                </v-btn>
-                <v-divider></v-divider>
-                    <v-list-item v-for="(reivew, idx) in reivews" 
-                        :key="idx">
-                    <v-list-item-content>
-                        <div>
-                            <div v-if="(reivew.nickname)===this.$store.state.nickname">
-                                <v-btn  v-on:click="deleteReivew(reivew.id)" icon color="red">
-                                    <v-icon>mdi-trash-can-outline</v-icon>삭제
-                                </v-btn>
-                            </div>
-                            <div v-else>
-                                <v-btn icon v-on:click="userProfile(reivew.nickname)">
-                                <v-icon>mdi-account-outline</v-icon>
-                                {{reivew.nickname}}
-                                </v-btn>
-                            </div>
-                        </div>
-                        <v-list-item-title class="mb-2">#{{idx+1}}. 점수 : {{reivew.score}}</v-list-item-title>
-                        <v-list-item-subtitle>{{ reivew.content }}</v-list-item-subtitle>
-                    </v-list-item-content>          
-                    </v-list-item>  
-                    <v-divider
-                ></v-divider>
-            </v-list>
-        </v-card-text>
+        </v-card-title> 
         </v-card>
     </v-window-item>
     </v-window>
@@ -87,6 +63,7 @@
 </template>
 
 <script>
+import WriteForm from "./MyModal.vue";
 import axios from 'axios';
 import SERVER from "@/api/api";
 export default {
@@ -104,7 +81,11 @@ export default {
             image:'',
             likestatus:false,
             reivews:[],
+            visible: false,
     }},
+    components: {
+        appMyModal: WriteForm
+    },
     methods:{
         writeReview(storeId) {
             this.$router.push(`/review/${storeId}/write`);
@@ -178,7 +159,20 @@ export default {
                 this.reivews = res.data
             })
             .catch((err) => console.error(err));
-        }   
+        },
+        doc_del_rendar(){
+            this.$modal.show(WriteForm,{
+                hot_table : 'data',
+                modal : this.$modal },{
+                name: 'dynamic-modal',
+                width : '430px',
+                height : '230px',
+                draggable: true,
+            })
+        },
+        handleClickButton(){
+            this.visible = !this.visible
+        } 
     },
     created() {
         this.getStore()

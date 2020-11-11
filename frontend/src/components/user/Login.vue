@@ -209,7 +209,7 @@ export default {
     dialog: true,
     tab: 0,
     tabs: [
-      {name:"Login", icon:"mdi-account"},
+        {name:"Login", icon:"mdi-account"},
         {name:"Register", icon:"mdi-account-outline"}
     ],
     valid: true,
