@@ -58,12 +58,13 @@
                                         </v-col>
                                         <v-col v-show="allowSpaces" cols="12">
                                         <p>가게 주소 입력</p>
-                                        <input type="text" id="sample4_postcode" placeholder="우편번호">
+                                        <p><input type="text" id="sample4_detailAddress" placeholder="가게 이름"  v-model="storeData.name"></p>
+                                        <p><input type="number" id="sample4_extraAddress" placeholder="전화번호 ex)023334444" v-model="storeData.tel">
+                                        </p>
                                         <input type="button" @click="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
-                                        <input type="text" id="sample4_roadAddress" placeholder="도로명주소">
+                                        <input type="text" id="sample4_postcode" placeholder="우편번호" >
+                                        <input type="text" id="sample4_roadAddress" placeholder="도로명주소" >
                                         <span id="guide" style="color:#999;display:none"></span>
-                                        <input type="text" id="sample4_detailAddress" placeholder="상세주소">
-                                        <input type="text" id="sample4_extraAddress" placeholder="참고항목">
                                         </v-col>
                                     </v-row>
                                 </v-form>
@@ -121,6 +122,7 @@ export default {
                 // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
                 if(roadAddr !== ''){
                   document.getElementById("sample4_extraAddress").value = extraRoadAddr;
+                  
                 } else {
                   document.getElementById("sample4_extraAddress").value = '';
                 }
@@ -140,10 +142,31 @@ export default {
                   guideTextBox.innerHTML = '';
                     guideTextBox.style.display = 'none';
                 }
+            
             }
         }).open();
     },
     ...mapActions(['login','signup']),
+    sendstoreinfo() {
+      this.storeData.address = document.getElementById("sample4_roadAddress").value
+      console.log(this.storeData)
+      if (this.storeData) {
+      console.log(this.storeData)
+      axios({
+        method: "post",
+        //주소 바꾸기
+        url: SERVER.URL +"/feature/storeres/write",
+        data: {
+          name:this.storeData.name,
+          tel:this.storeData.tel,
+          address:this.storeData.address,
+          nickname:this.nickname,
+        }
+        })
+      } else {
+        pass
+      }
+    },
     onUpload() {
       console.log(this.imagefile.name)
       axios({
@@ -169,6 +192,8 @@ export default {
     signupvalidate(signupData) {
       console.log(signupData)
       this.signup(signupData)
+      this.sendstoreinfo()
+      
     },
     reset() {
       this.$refs.form.reset();
@@ -193,6 +218,11 @@ export default {
       email: "",
       password: "",
       verify:""
+    },
+    storeData:{
+      address:"",
+      tel:"", 
+      name:""
     },
     verify: "",
     key:"",

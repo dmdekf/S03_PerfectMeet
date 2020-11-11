@@ -18,7 +18,8 @@ import storeDetail from "../components/stores/Detail.vue"
 import reviewWrite from "../components/review/Write.vue"
 
 //reservation
-import reserveMap from "../components/reserve/ReserveMap.vue";
+import reserveResult from "../components/reserve/Result.vue";
+import reserveDetail from "../components/reserve/Detail.vue";
 
 Vue.use(BootstrapVue)
 Vue.use(Vuex)
@@ -102,10 +103,21 @@ const routes = [
     component: reviewWrite,
   },
   {
-    path: "/reserve/selectMap",
-    name: "reserveMap",
-    component: reserveMap,
+    path: "/reserve/result",
+    name: "reserveResult",
+    component: reserveResult,
   },
+  {
+    path: "/reserve/detail/:id",
+    props: ({
+      params
+    }) => ({
+      id: Number.parseInt(params.id)
+    }),
+    name: "reserveDetail",
+    component: reserveDetail
+  },
+
 ];
 
 const router = new VueRouter({

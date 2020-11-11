@@ -41,6 +41,27 @@
         ></v-divider>
         </div>
       </v-list>
+      <v-list>
+          <div v-if="this.messages">
+            <v-list-item-icon justify="center">
+            <v-icon  >mdi-android-messages</v-icon>
+            메시지 목록
+            </v-list-item-icon>
+        <v-divider></v-divider>
+            <v-list-item v-for="(msg, idx) in messages" 
+                
+                :key="idx">
+            <v-list-item-content>
+                <v-img src="like.image"></v-img>
+                <v-list-item-title class="mb-2">#{{idx+1}}. </v-list-item-title>
+                <v-list-item-subtitle>보낸사람 : {{ msg.sender }}</v-list-item-subtitle>
+                <v-list-item-subtitle>내용 : {{ msg.content }}</v-list-item-subtitle>
+            </v-list-item-content>          
+            </v-list-item>  
+            <v-divider
+        ></v-divider>
+        </div>
+      </v-list>
     <v-list>
         <v-list-item-icon justify="center">
             <v-icon color="indigo" class="mr-9">mdi-newspaper-variant-multiple-outline</v-icon>
@@ -88,6 +109,7 @@ export default {
             reviews:[],
             likes:[],
             profileImg:'',
+            messages:[],
         }
     },
     methods: {
@@ -98,9 +120,9 @@ export default {
         getUserdata() {
             axios({
                 method: "get",
-                url: SERVER.URL+"/user",
-                data: {
-                    nickname:this.nickname
+                url: SERVER.URL+`/user?nickname=${this.nickname}`,
+                headers:{
+                    nickname: this.nickname
                 },
             })
                 .then((res) => { 
@@ -116,19 +138,34 @@ export default {
             axios({
                 method: "get",
                 url: SERVER.URL+"/dibs",
-                data: {
-                    nickname:this.nickname
+                headers:{
+                    nickname: this.nickname
                 },
             })
                 .then((res) => { 
-                    this.likes = res.data.dibs           
+                    this.likes = res.data.data          
                 })
                 .catch((err) => console.log(err.response.data));
-        }
+        },
+        getUsermessages() {
+            axios({
+                method: "get",
+                url: SERVER.URL+`/message/getReceiver?receiver=${this.nickname}`,
+                headers: {
+                    receiver:this.nickname
+                },
+            })
+                .then((res) => { 
+                    console.log(res);
+                    this.messages = res.data.data.list;           
+                })
+                .catch((err) => console.log(err.response.data));
+        },
     },
     created() {
         this.getUserdata()
         this.getUserlikes()
+        this.getUsermessages()
             
     }
 }

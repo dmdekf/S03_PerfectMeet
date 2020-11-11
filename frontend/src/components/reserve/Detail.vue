@@ -127,25 +127,25 @@ export default {
         likeStore(){
             axios({
                 method: "post",
-                url : SERVER.URL +`/dibs?sid=${this.id}`,
-                headers:{
+                url : SERVER.URL +"/dibs",
+                data:{
                     nickname:this.$store.state.nickname,
+                    sid:this.id
                 }                    
             }).then(
-                    this.likestatus = !this.likestatus,
-                    alert("찜 했습니다")                        
+                    this.likestatus = !this.likestatus                        
                 )
         },
         unlikeStore(){
             axios({
                 method: "delete",
-                url : SERVER.URL +`/dibs?sid=${this.id}`,
-                headers:{
+                url : SERVER.URL +"/dibs",
+                data:{
                     nickname:this.$store.state.nickname,
+                    sid:this.id
                 }                    
             }).then(
-                    this.likestatus = !this.likestatus,
-                    alert('찜을 해제했습니다.')                        
+                    this.likestatus = !this.likestatus                        
                 )
         }, 
         userProfile(nickname) {
@@ -153,7 +153,7 @@ export default {
         },
         getStore() {
             axios
-            .get(SERVER.URL +"/stores/"+this.id)
+            .get(SERVER.URL +"/feature/storeres/detail/"+this.id)
             .then((res) => {
                 console.log(res.data)
                 this.name = res.data.data.name;
@@ -164,12 +164,8 @@ export default {
             .catch((err) => console.error(err));
         },
         getLike() {
-            axios({
-                method: "get",
-                url : SERVER.URL +`/dibs/${this.id}`,
-                headers:{
-                    nickname:this.$store.state.nickname}
-            })
+            axios
+            .get(SERVER.URL +"/dibs/"+this.id)
             .then((res) => {
                 this.likestatus = res.data
             })
@@ -188,7 +184,7 @@ export default {
         this.getStore()
         this.getLike()
         this.getReviews()
-        },
+    },
 }
 </script>
 

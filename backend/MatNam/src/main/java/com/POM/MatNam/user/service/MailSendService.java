@@ -92,7 +92,7 @@ public class MailSendService {
         String htmlStr = "<h2>안녕하세요 EZI LOG 입니다!</h2><br><br>" + "<h3>" + nickname + "님</h3>" + "현재 고객님의 비밀번호는 "
                 + password + "입니다.";
 
-        MimeMessage message = new MimeMessage(session);
+        MimeMessage message = new MimeMessage(session); 
 
         message.setFrom(new InternetAddress(setfrom));
         message.setRecipient(Message.RecipientType.TO, new InternetAddress(email));

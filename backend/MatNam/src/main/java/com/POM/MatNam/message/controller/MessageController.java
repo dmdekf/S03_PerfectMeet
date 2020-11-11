@@ -35,7 +35,7 @@ public class MessageController {
 	
 	@GetMapping("/getReceiver")
 	@ApiOperation(value ="특정 수신자가 받는 메세지 가져오기")
-	public Object getReceiverMessage(@RequestParam String receiver) {
+	public Object getReceiverMessage(@RequestParam(value="receiver", required = true) String receiver) {
 		ResponseEntity<BasicResponse> response = null;
 		Map<String, Object>errors = new HashMap<>();
 		Object rmlist = messageService.getMessageByReceiver(receiver);
