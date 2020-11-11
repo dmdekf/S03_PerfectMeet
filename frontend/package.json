@@ -16,7 +16,7 @@
     "d3": "^6.2.0",
     "dhtmlx-scheduler": "^5.3.9",
     "jquery": "^3.5.1",
-    "moment": "^2.29.0",
+    "moment": "^2.29.1",
     "moment-timezone": "^0.5.31",
     "vue": "^2.6.12",
     "vue-moment": "^4.1.0",
