@@ -20,6 +20,8 @@ import reviewWrite from "../components/review/Write.vue"
 //reservation
 import reserveResult from "../components/reserve/Result.vue";
 import reserveDetail from "../components/reserve/Detail.vue";
+//reservation management
+import Storemanagement from "../components/user/Storemanagement.vue"
 
 Vue.use(BootstrapVue)
 Vue.use(Vuex)
@@ -35,6 +37,11 @@ const routes = [
     path:'/user/login',
     name: 'userLogin',
     component: Login,
+  }, 
+  {
+    path: '/user/Storemanagement',
+    name: 'Storemanagement',
+    component: Storemanagement,
   },
   {
     path: '/user/profile/:nickname',
