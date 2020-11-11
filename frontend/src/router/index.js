@@ -2,7 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Vuex from "vuex";
 import BootstrapVue from "bootstrap-vue";
-
+import VModal from 'vue-js-modal';
 import Main from "../components/Main.vue";
 import Recommand from '../components/Recommand.vue';
 
@@ -20,12 +20,18 @@ import reviewWrite from "../components/review/Write.vue"
 //reservation
 import reserveResult from "../components/reserve/Result.vue";
 import reserveDetail from "../components/reserve/Detail.vue";
-
+import mymodal from "../components/reserve/index.vue";
 Vue.use(BootstrapVue)
 Vue.use(Vuex)
 Vue.use(VueRouter)
+Vue.use(VModal, { dynamic: true })
 
 const routes = [
+  {
+    path: "/mymodal",
+    name: "mymodal",
+    component: mymodal,
+  },
   {
     path: "/",
     name: "MAIN",
