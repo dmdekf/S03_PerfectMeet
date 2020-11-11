@@ -3,10 +3,10 @@ package com.POM.MatNam.user.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletResponse;
-import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +27,9 @@ import com.POM.MatNam.response.BasicResponse;
 import com.POM.MatNam.response.ErrorResponse;
 import com.POM.MatNam.review.DAO.ReviewDao;
 import com.POM.MatNam.review.DTO.Review;
+import com.POM.MatNam.storeres.DAO.StoreResDao;
+import com.POM.MatNam.storeres.DTO.StoreRes;
+import com.POM.MatNam.user.dao.UserDao;
 import com.POM.MatNam.user.dto.FindpwRequestDTO;
 import com.POM.MatNam.user.dto.LoginRequestDTO;
 import com.POM.MatNam.user.dto.SignupRequestDTO;
@@ -38,7 +41,6 @@ import com.POM.MatNam.user.service.MailSendService;
 import com.POM.MatNam.user.service.UserService;
 
 import io.swagger.annotations.ApiOperation;
-import lombok.val;
 
 @RestController
 @RequestMapping("/user")
@@ -55,6 +57,12 @@ public class UserController {
 
 	@Autowired
 	private ReviewDao reviewDao;
+	
+	@Autowired
+	private StoreResDao storeResDao;
+	
+	@Autowired
+	private UserDao userDao;	
 	
 	@PostMapping
 	@ApiOperation(value = "회원 가입")
@@ -213,10 +221,30 @@ public class UserController {
 	            final ErrorResponse result = setErrors("E-4007", "이메일 인증에 실패했습니다.", errors);
 	            response = new ResponseEntity<>(result, HttpStatus.NOT_FOUND);
 	        } else {
-	            final BasicResponse result = new BasicResponse();
-	            result.status = "S-200";
-	            result.message = "이메일 인증에 성공했습니다.";
-	            response = new ResponseEntity<>(result, HttpStatus.OK);
+	        	// Store_Res에서 유저 이름으로 찾음
+	        	Optional<StoreRes>optStore = storeResDao.findByNickname(user.getNickname());
+	        	
+	        	
+	        	// 가게가 존재 한다면 인증 이후 삽입
+	        	if(optStore.isPresent()) {
+	        		User tempUser = userService.selectByNickname(user.getNickname());
+	        		tempUser.setStore_id(optStore.get().getId());
+	        		
+	        		userDao.save(tempUser);
+	        		
+	        		final BasicResponse result = new BasicResponse();
+	 	            result.status = "S-200";
+	 	            result.message = "가게 주인 이메일 인증에 성공했습니다.";
+	 	            response = new ResponseEntity<>(result, HttpStatus.OK);
+	        	// 없다면 일반 유저 삽입
+	        	}else {
+	        		final BasicResponse result = new BasicResponse();
+	 	            result.status = "S-200";
+	 	            result.message = "일반 유저 이메일 인증에 성공했습니다.";
+	 	            response = new ResponseEntity<>(result, HttpStatus.OK);
+	        	}
+	        	
+	           
 	        }
 	        return response;
 	}

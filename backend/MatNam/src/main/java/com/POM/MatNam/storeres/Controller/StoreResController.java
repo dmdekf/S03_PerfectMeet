@@ -116,18 +116,17 @@ public class StoreResController {
 		temp.setName(storeres.getName());
 		temp.setTel(storeres.getTel());
 		
-		User s_User = userService.selectByNickname(storeres.getNickname());
+		Optional<StoreRes> optStore = storeResDao.findByNameAndAddress(storeres.getName(), storeres.getAddress());
 		
-		if(s_User==null) { 
+		if(optStore.isPresent()) { 
 			errors.put("field", "addStoreUser");
-			errors.put("nickname", storeres.getNickname());
-			final ErrorResponse result = setErrors("E-4701", "가게 주인으로 등록하고자 하는 유저가 없습니다.", errors);
+			errors.put("name", storeres.getName());
+			errors.put("address", storeres.getAddress());
+			final ErrorResponse result = setErrors("E-4701", "이미 존재하는 가게 입니다.", errors);
 			response = new ResponseEntity<BasicResponse>(result, HttpStatus.NOT_FOUND);
 		}else {
 			final BasicResponse result = new BasicResponse();
 			StoreRes s_temp = storeResDao.save(temp);
-			s_User.setStore_id(s_temp.getId());
-			userDao.save(s_User);
 			result.status = "200";
 			result.message="가게 등록 성공";
 			response = new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
