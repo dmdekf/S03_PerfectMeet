@@ -36,6 +36,9 @@ export default new Vuex.Store({
       auth_token: state.auth_token,
     }),
     isLoggedIn: (state) => !!state.token,
+    nickname: (state) => {
+      return state.nickname;
+    }
   },
 
   mutations: {

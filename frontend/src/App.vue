@@ -41,6 +41,15 @@
             <v-list-item-title>Notice</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+
+        <v-list-item v-if="isLoggedIn" @click="openChat">
+          <v-list-item-action>
+            <v-icon>mdi-chat</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>Chatting</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
       </v-list>
     </v-navigation-drawer>
 
@@ -81,6 +90,14 @@
           </v-col>
         </v-row>
     <router-view class="container"/>
+      <div 
+        v-if="chatStatus" 
+      >
+        <ChatWindow 
+        ref="chatwindow"
+          :close-handler="closeChat"
+        />
+      </div>
     </v-main>
     <v-footer
       id="footer"
@@ -109,17 +126,22 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import ChatWindow from '@/components/chat/ChatWindow.vue'
 export default {
   name: 'App',
+  components:{
+		ChatWindow
+	},
   computed: {
-    ...mapGetters(['isLoggedIn'])
+    ...mapGetters(['isLoggedIn']),
+    ...mapGetters(['nickname'])
   },
   props: {
     source: String,
   },
   data: () => ({
     drawer: false,
-    
+    chatStatus : false
   }),
   methods:{
     ...mapActions(['logout']),
@@ -127,6 +149,16 @@ export default {
       const nickname = this.$store.state.nickname
             this.$router.push(`/user/profile/${nickname}`);
       },
+    openChat(){
+			if(this.nickname){
+				this.chatStatus = true;
+			}else{
+				alert("채팅은 로그인 후 이용 가능한 서비스입니다");
+			}
+		},
+		closeChat(){
+			this.chatStatus = false;
+		}
   }
   
 }
