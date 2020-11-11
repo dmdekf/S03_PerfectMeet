@@ -62,8 +62,8 @@
                                         <p><input type="number" id="sample4_extraAddress" placeholder="전화번호 ex)023334444" v-model="storeData.tel">
                                         </p>
                                         <input type="button" @click="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
-                                        <input type="text" id="sample4_postcode" placeholder="우편번호" >
-                                        <input type="text" id="sample4_roadAddress" placeholder="도로명주소" >
+                                        <input type="text" id="sample4_postcode" placeholder="우편번호" :readonly="true" >
+                                        <input type="text" id="sample4_roadAddress" placeholder="도로명주소" :readonly="true" >
                                         <span id="guide" style="color:#999;display:none"></span>
                                         </v-col>
                                     </v-row>

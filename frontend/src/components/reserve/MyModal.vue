@@ -38,6 +38,8 @@
 
                     
                 </v-row>
+                 <v-btn block outlined :disabled="!valid" color="blue" @click="writeBoard"> 등록 </v-btn> 
+                
       </div>
       <div class="my_modal__footer">
           <button @click="$emit('update:visible', !visible)" aria-flowto="">Close</button>

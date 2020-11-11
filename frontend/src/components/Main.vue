@@ -31,13 +31,14 @@
 				<span class="sr-only">Next</span>
 			</a>
 		</div>
+		
   </v-app>
 </template>
 
 <script>
-	export default {
 
-  }
+export default {
+}
 </script>
 
 <style>

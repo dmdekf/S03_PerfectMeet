@@ -55,6 +55,7 @@ public class ReserveService {
 		return result;
 	}
 	
+	// 특정 유저의 예약 리스트 조회
 	public Object reserveListNickname(String nickname) {
 		
 		Object result;
@@ -69,7 +70,8 @@ public class ReserveService {
 		return result;
 	}
 	
-		public Object reserveWaitNickname(String nickname) {
+	// 특정 유저의 예약 요청 리스트 조회
+	public Object reserveWaitNickname(String nickname) {
 		
 		Object result;
 		Optional<List<ReserveWait>>optwait = reserveWaitDao.findReserveWaitByNickname(nickname);
@@ -83,6 +85,7 @@ public class ReserveService {
 		return result;
 	}
 	
+	// 가게 아이디, 예약 시간, 닉네임을 통해 예약 조회
 	public Object getList(Long store_id, LocalDateTime reserve_time, String nickname) {
 		
 		Object result;
@@ -96,6 +99,7 @@ public class ReserveService {
 		return result;
 	}
 	
+	// id를 통해 예약 조회
 	public Object getListById(Long list_id) {
 		Object result;
 		Optional<ReserveList> list = reserveListDao.findById(list_id);
@@ -107,6 +111,7 @@ public class ReserveService {
 		return result;
 	}
 	
+	// 특정 가게 아이디, 예약시간, 유저를 통해 예약 요청 조회
 	public Object getWait(Long store_id, LocalDateTime reserve_time, String nickname) {
 		
 		Object result;
@@ -120,6 +125,7 @@ public class ReserveService {
 		return result;
 	}
 	
+	// 예약 요청을 id를 통해 조회
 	public Object getWaitById(Long list_id) {
 		Object result;
 		Optional<ReserveWait> list = reserveWaitDao.findById(list_id);

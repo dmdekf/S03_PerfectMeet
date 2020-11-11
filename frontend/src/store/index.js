@@ -19,11 +19,7 @@ export default new Vuex.Store({
     login_user: "",
     auth_token: "",
     select_map: "",
-    
-    select_userinfo: {
-      gender: "",
-      age: "",
-    },
+    store_id:"",
     select_userpurpose: "",
     data_list: "",
     board_lists: []
@@ -36,6 +32,9 @@ export default new Vuex.Store({
       auth_token: state.auth_token,
     }),
     isLoggedIn: (state) => !!state.token,
+    nickname: (state) => {
+      return state.nickname;
+    }
   },
 
   mutations: {
@@ -44,6 +43,9 @@ export default new Vuex.Store({
     },
     SET_TOKEN(state, { token }) {
       state.token = token;
+    },
+    SET_STOREID(state, { store_id }) {
+      state.store_id = store_id;
     },
     SET_EMAIL(state, { email }) {
       state.email = email;
@@ -75,9 +77,7 @@ export default new Vuex.Store({
         method: "post",
         url: SERVER.URL + "/user",
         data: {
-          age:20,
           email: signupData.email,
-          gender:true,
           nickname: signupData.nickname,
           password: signupData.password,
         },
@@ -107,6 +107,9 @@ export default new Vuex.Store({
             commit("SET_TOKEN", { token: res.headers["jwt-auth-token"] });
             commit("SET_NICKNAME", {
               nickname: res.headers["nickname"]
+            });
+            commit("SET_STOREID", {
+              store_id: res.headers["store_id"]
             });
             getters.config;
             router.push({ name: "MAIN" });
