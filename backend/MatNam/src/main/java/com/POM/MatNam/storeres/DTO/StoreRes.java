@@ -22,6 +22,7 @@ public class StoreRes {
    private Long id;
    
    private String name;
+   private String nickname;
    private String address;
    private String tel;
    private String image;

@@ -47,19 +47,42 @@
             <v-icon  >mdi-android-messages</v-icon>
             메시지 목록
             </v-list-item-icon>
-        <v-divider></v-divider>
-            <v-list-item v-for="(msg, idx) in messages" 
-                
-                :key="idx">
-            <v-list-item-content>
-                <v-img src="like.image"></v-img>
-                <v-list-item-title class="mb-2">#{{idx+1}}. </v-list-item-title>
-                <v-list-item-subtitle>보낸사람 : {{ msg.sender }}</v-list-item-subtitle>
-                <v-list-item-subtitle>내용 : {{ msg.content }}</v-list-item-subtitle>
-            </v-list-item-content>          
-            </v-list-item>  
-            <v-divider
-        ></v-divider>
+            <v-divider></v-divider>
+                <v-data-table
+                    :headers="messageHeaders"
+                    :items="messages"
+                >
+                    <template slot="items" slot-scope="props">
+                    <td :class="headers[0].class">{{ props.item.sender }}</td>
+                    <td :class="headers[1].class">{{ props.item.content }}</td>
+                    
+                    </template>
+                >
+                </v-data-table>
+            <v-divider></v-divider>
+        </div>
+      </v-list>
+       <v-list>
+          <div v-if="this.reserveList">
+            <v-list-item-icon justify="center">
+            <v-icon  >mdi-android-messages</v-icon>
+            예약 목록
+            </v-list-item-icon>
+            <v-divider></v-divider>
+                <v-data-table
+                    :headers="reserveHeaders"
+                    :items="reserveList"
+                   
+                >
+                    <template slot="items" slot-scope="props">
+                    <td :class="headers[0].class">{{ props.item.store_name }}</td>
+                    <td :class="headers[1].class">{{ props.item.people_num }}</td>
+                    <td :class="headers[2].class">{{ getFormatDate(props.item.reserve_date) }}</td>
+                    
+                    </template>
+                >
+                </v-data-table>
+            <v-divider></v-divider>
         </div>
       </v-list>
     <v-list>
@@ -94,6 +117,8 @@
 import axios from "axios";
 // import router from "@/router";
 import SERVER from "@/api/api";
+import { formatDate } from '@/util/format';
+
 export default {
     name:"Profile",
     props:{
@@ -110,6 +135,16 @@ export default {
             likes:[],
             profileImg:'',
             messages:[],
+            reserveList:[],
+            reserveHeaders:[
+                {text: '가게 이름', value:'store_name', sortable:true},
+                {text: '예약 인원', value:'people_num', sortable:true},
+                {text: '예약 날짜', value:'reserve_date', sortable:true},
+            ],
+            messageHeaders:[
+                {text: '보낸 사람', value:'sender', sortable:true},
+                {text: '내용', value:'content', sortable:true},
+            ]
         }
     },
     methods: {
@@ -161,11 +196,36 @@ export default {
                 })
                 .catch((err) => console.log(err.response.data));
         },
+        getUserReserves(){
+            axios({
+                method:"get",
+                url: SERVER.URL+'/reserve/userReserveList',
+                params:{
+                    nickname: this.nickname
+                },
+            })
+            .then((res) =>{
+                this.reserveList = res.data.data.list;
+                
+                console.log(this.reserveList);
+
+                for(var i=0; i<this.reserveList.length; i++ ){
+                    
+                    this.reserveList[i].reserve_date = this.getFormatDate(this.reserveList[i].reserve_date);
+                }
+            })
+            .catch((err) => console.log(err));
+        },
+        getFormatDate(date){
+            console.log(date);
+            return formatDate(date, 'YY.MM.DD HH:mm');
+        }
     },
     created() {
         this.getUserdata()
         this.getUserlikes()
         this.getUsermessages()
+        this.getUserReserves()
             
     }
 }
