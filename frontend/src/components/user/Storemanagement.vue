@@ -5,7 +5,7 @@
     >
     <v-container>
     <v-row>
-        <v-col cos="12" align="center"
+        <v-col cols="6" align="center"
           justify="center">
           예약 대기 리스트
             <v-data-table
@@ -19,8 +19,7 @@
             >
             </v-data-table>
         </v-col>
-        <hr>
-        <v-col cos="12" align="center"
+        <v-col cols="6" align="center"
           justify="center">
           예약 리스트
             <v-data-table
