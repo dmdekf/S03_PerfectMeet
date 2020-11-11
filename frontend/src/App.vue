@@ -99,6 +99,7 @@
         <a href="https://github.com/dmdekf"> Yunji Na, </a> 
         <a href="https://github.com/lshmn951"> Sung Hyeon Lee, </a> 
         <a href="https://github.com/wjsgudwls89"> Hyung jin Jeon. </a>
+        <a href="https://github.com/MHKANG"> Myung Hun Kang. </a>
       </div>
       </v-col>
     </v-footer>

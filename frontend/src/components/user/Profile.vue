@@ -47,19 +47,19 @@
             <v-icon  >mdi-android-messages</v-icon>
             메시지 목록
             </v-list-item-icon>
-        <v-divider></v-divider>
-            <v-list-item v-for="(msg, idx) in messages" 
-                
-                :key="idx">
-            <v-list-item-content>
-                <v-img src="like.image"></v-img>
-                <v-list-item-title class="mb-2">#{{idx+1}}. </v-list-item-title>
-                <v-list-item-subtitle>보낸사람 : {{ msg.sender }}</v-list-item-subtitle>
-                <v-list-item-subtitle>내용 : {{ msg.content }}</v-list-item-subtitle>
-            </v-list-item-content>          
-            </v-list-item>  
-            <v-divider
-        ></v-divider>
+            <v-divider></v-divider>
+                <v-data-table
+                    :headers="messageHeaders"
+                    :items="messages"
+                >
+                    <template slot="items" slot-scope="props">
+                    <td :class="headers[0].class">{{ props.item.sender }}</td>
+                    <td :class="headers[1].class">{{ props.item.content }}</td>
+                    
+                    </template>
+                >
+                </v-data-table>
+            <v-divider></v-divider>
         </div>
       </v-list>
        <v-list>
@@ -68,20 +68,21 @@
             <v-icon  >mdi-android-messages</v-icon>
             예약 목록
             </v-list-item-icon>
-        <v-divider></v-divider>
-            <v-list-item v-for="(rsl, idx) in reserveList" 
-                
-                :key="idx">
-            <v-list-item-content>
-                <v-img src="like.image"></v-img>
-                <v-list-item-title class="mb-2">#{{idx+1}}. </v-list-item-title>
-                <v-list-item-subtitle>가게이름 : {{ rsl.store_name }}</v-list-item-subtitle>
-                <v-list-item-subtitle>예약일자 : {{ getFormatDate(rsl.reserve_date) }}</v-list-item-subtitle>
-                <v-list-item-subtitle>예약인원 : {{ rsl.people_num }}</v-list-item-subtitle>
-            </v-list-item-content>          
-            </v-list-item>  
-            <v-divider
-        ></v-divider>
+            <v-divider></v-divider>
+                <v-data-table
+                    :headers="reserveHeaders"
+                    :items="reserveList"
+                   
+                >
+                    <template slot="items" slot-scope="props">
+                    <td :class="headers[0].class">{{ props.item.store_name }}</td>
+                    <td :class="headers[1].class">{{ props.item.people_num }}</td>
+                    <td :class="headers[2].class">{{ getFormatDate(props.item.reserve_date) }}</td>
+                    
+                    </template>
+                >
+                </v-data-table>
+            <v-divider></v-divider>
         </div>
       </v-list>
     <v-list>
@@ -135,6 +136,15 @@ export default {
             profileImg:'',
             messages:[],
             reserveList:[],
+            reserveHeaders:[
+                {text: '가게 이름', value:'store_name', sortable:true},
+                {text: '예약 인원', value:'people_num', sortable:true},
+                {text: '예약 날짜', value:'reserve_date', sortable:true},
+            ],
+            messageHeaders:[
+                {text: '보낸 사람', value:'sender', sortable:true},
+                {text: '내용', value:'content', sortable:true},
+            ]
         }
     },
     methods: {
@@ -195,14 +205,19 @@ export default {
                 },
             })
             .then((res) =>{
-                console.log("예약 목록")
-                console.log(res);
                 this.reserveList = res.data.data.list;
+                
+                console.log(this.reserveList);
 
+                for(var i=0; i<this.reserveList.length; i++ ){
+                    
+                    this.reserveList[i].reserve_date = this.getFormatDate(this.reserveList[i].reserve_date);
+                }
             })
             .catch((err) => console.log(err));
         },
         getFormatDate(date){
+            console.log(date);
             return formatDate(date, 'YY.MM.DD HH:mm');
         }
     },
