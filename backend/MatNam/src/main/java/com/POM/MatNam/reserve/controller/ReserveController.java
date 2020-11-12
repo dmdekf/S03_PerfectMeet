@@ -46,9 +46,9 @@ public class ReserveController {
 	@Autowired
 	private StoreResDao storeResDao;
 	
-	@GetMapping("/reserveList/{store_id}")
+	@GetMapping("/reserveList")
 	@ApiOperation(value ="가게 예약 리스트 가져오기")
-	public Object getReserveList(@PathVariable(value="store_id") Long store_id) {
+	public Object getReserveList(@RequestParam(value="store_id") Long store_id) {
 		ResponseEntity<BasicResponse> response = null;
 		Map<String, Object> errors = new HashMap<>();
 		Object reservelist = reserveService.reserveListStore(store_id);
@@ -101,9 +101,9 @@ public class ReserveController {
 		return response;
 	}
 	
-	@GetMapping("/reserveWait/{store_id}")
+	@GetMapping("/reserveWait")
 	@ApiOperation(value ="가게 예약 요청 목록 가져오기")
-	public Object getReserveWait(@PathVariable(value="store_id") Long store_id) {
+	public Object getReserveWait(@RequestParam(value="store_id") Long store_id) {
 		ResponseEntity<BasicResponse> response = null;
 		Map<String, Object> errors = new HashMap<>();
 		Object reserveWait = reserveService.reserveWaitStore(store_id);
