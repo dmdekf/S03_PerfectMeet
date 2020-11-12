@@ -64,16 +64,24 @@
 import axios from "axios";
 // import router from "@/router";
 import SERVER from "@/api/api";
+import { formatDate } from '@/util/format';
+
 export default {
     methods: {
         getreservewaitlists() {
             axios({
                 method: "get",
-                url: SERVER.URL+`reserve/reserveWait?store_id=${this.$store.state.store_id}`,
+                url: SERVER.URL+`/reserve/reserveWait?store_id=3`,
+                
             })
                 .then((res) => { 
                     console.log(res);
-                    this.reserve_waitlists = res.data.data.list;           
+                    this.reserve_waitlists = res.data.data.list;  
+                    
+                     for(var i=0; i<this.reserve_waitlists.length; i++ ){
+                    
+                        this.reserve_waitlists[i].reserve_date = this.getFormatDate(this.reserve_waitlists[i].reserve_date);
+                     }
                 })
                 .catch((err) => console.log(err.response.data));
         },
@@ -142,10 +150,22 @@ export default {
             })
                 .then((res) => { 
                     console.log(res);
-                    this.reserve_lists = res.data.data.list;           
+                    this.reserve_lists = res.data.data.list;   
+                    
+                    for(var i=0; i<this.reserve_lists.length; i++ ){
+                    
+                    this.reserve_lists[i].reserve_date = this.getFormatDate(this.reserve_lists[i].reserve_date);
+                }
                 })
                 .catch((err) => console.log(err.response.data));
-        }
+        },
+        getFormatDate(date){
+            return formatDate(date, 'YY.MM.DD HH:mm');
+        },
+    },
+    created (){
+      this.getreservewaitlists()
+      this.getreservelists
     },
     data: () => {
       return {
@@ -158,7 +178,7 @@ export default {
             sortable: false,
             value: 'nickname',
           },
-          { text: '예약 날짜', value: 'date' },
+          { text: '예약 날짜', value: 'reserve_date' },
           { text: '예약 인원', value: 'people_num' },
           { text: '수락', value: 'button_1' },
           { text: '거절', value: 'button_0' }
@@ -173,7 +193,7 @@ export default {
             sortable: false,
             value: 'nickname',
           },
-          { text: '예약 날짜', value: 'date' },
+          { text: '예약 날짜', value: 'reserve_date' },
           { text: '예약 인원', value: 'people_num' },
           { text: '완료', value: 'button_1' },
           { text: '삭제', value: 'button_0' }
