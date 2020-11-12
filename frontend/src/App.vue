@@ -140,7 +140,8 @@ export default {
 	},
   computed: {
     ...mapGetters(['isLoggedIn']),
-    ...mapGetters(['nickname'])
+    ...mapGetters(['nickname']),
+    ...mapGetters(['store_id'])
   },
   props: {
     source: String,
