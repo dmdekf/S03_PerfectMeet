@@ -94,6 +94,30 @@ public class StoreResController {
 		
 		return response;
 	}
+	@ApiOperation(value="가게 주인으로 가게 정보 찾기")
+	@GetMapping("/findStoreName")
+	public Object getStoreByName(@RequestParam("nickname")String nickname) {
+		ResponseEntity<BasicResponse> response = null;
+		Map<String, Object>errors = new HashMap<>();
+		
+		Optional<StoreRes>res = storeResDao.findByNickname(nickname);
+		
+		if(!res.isPresent()) {
+			errors.put("field", "getStoreResNickname");
+			errors.put("nickname", nickname);
+			final ErrorResponse result = setErrors("E-4700", "해당 가게 정보가 없습니다.", errors);
+			response = new ResponseEntity<BasicResponse>(result, HttpStatus.NOT_FOUND);
+		}else {
+			final BasicResponse result = new BasicResponse();
+			result.status = "200";
+			result.message="가게 등록 성공";
+			result.data = res.get();
+			response = new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
+		}
+		
+		return response;
+		
+	}
 	
 
 //	@ApiOperation(value = "가게번호에 해당하는 게시글의 정보를 반환한다.", response = String.class)
@@ -115,6 +139,7 @@ public class StoreResController {
 		temp.setAddress(storeres.getAddress());
 		temp.setName(storeres.getName());
 		temp.setTel(storeres.getTel());
+		temp.setNickname(storeres.getNickname());
 		
 		Optional<StoreRes> optStore = storeResDao.findByNameAndAddress(storeres.getName(), storeres.getAddress());
 		
