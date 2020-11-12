@@ -20,13 +20,10 @@ import reviewWrite from "../components/review/Write.vue"
 //reservation
 import reserveResult from "../components/reserve/Result.vue";
 import reserveDetail from "../components/reserve/Detail.vue";
-<<<<<<< HEAD
 import mymodal from "../components/reserve/index.vue";
-=======
 //reservation management
 import Storemanagement from "../components/user/Storemanagement.vue"
 
->>>>>>> 1ad93e66ada620ce4c0d8720f8fb2caead4c85b3
 Vue.use(BootstrapVue)
 Vue.use(Vuex)
 Vue.use(VueRouter)
