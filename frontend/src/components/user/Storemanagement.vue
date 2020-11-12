@@ -71,7 +71,7 @@ export default {
         getreservewaitlists() {
             axios({
                 method: "get",
-                url: SERVER.URL+`/reserve/reserveWait?store_id=3`,
+                url: SERVER.URL+`/reserve/reserveWait?store_id=${this.$store.state.store_id}`,
                 
             })
                 .then((res) => { 
