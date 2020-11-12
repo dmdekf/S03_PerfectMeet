@@ -14,6 +14,7 @@
                 item-key="nickname"
             >
             <template slot="items" slot-scope="props">
+              <tr>
               <td :class="headers[0].class">{{ props.item.nickname }}</td>
               <td :class="headers[1].class">{{ props.item.people_num }}</td>
               <td :class="headers[2].class">{{ props.item.reserve_date }}</td>
@@ -39,6 +40,7 @@
               <v-icon>mdi-close-thick</v-icon>
             </v-btn>
               </td>
+              </tr>
             </template>
             </v-data-table>
         </v-col>
@@ -146,7 +148,7 @@ export default {
         getreservelists() {
             axios({
                 method: "get",
-                url: SERVER.URL+`reserve/reserveList?store_id=${this.$store.state.store_id}`,
+                url: SERVER.URL+`/reserve/reserveList?store_id=${this.$store.state.store_id}`,
             })
                 .then((res) => { 
                     console.log(res);
@@ -165,7 +167,7 @@ export default {
     },
     created (){
       this.getreservewaitlists()
-      this.getreservelists
+      this.getreservelists()
     },
     data: () => {
       return {
