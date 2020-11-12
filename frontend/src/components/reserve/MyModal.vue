@@ -50,6 +50,10 @@
 </template>
 
 <script>
+
+import axios from "axios";
+import SERVER from "@/api/api";
+
 export default {
   name: 'my-modal',
   data: () => ({
@@ -77,12 +81,32 @@ export default {
     title: {
       type: String,
       require: false,
-    }, 
+    },
+    nickname:{
+      type:String,
+      required:true,
+    } 
   },
   methods: {
     handleWrapperClick(){
       this.$emit('update:visible', false)
     },
+    writeBoard(){
+      axios({
+                method: "post",
+                url: SERVER.URL+'/reserve/addWait',
+                headers:{
+                    nickname: '',
+                    store_id: 0,
+                    date: this.date,
+                    people_num: 3
+                },
+            })
+                .then((res) => { 
+                    console.log(res)          
+                })
+                .catch((err) => console.log(err));
+    }
   },
 } 
 </script>
