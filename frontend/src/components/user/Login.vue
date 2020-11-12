@@ -192,8 +192,10 @@ export default {
     signupvalidate(signupData) {
       console.log(signupData)
       this.signup(signupData)
-      this.sendstoreinfo()
-      
+      if(storeData.name!=null){
+        console.log(this.sendstoreinfo);
+        this.sendstoreinfo()
+      }
     },
     reset() {
       this.$refs.form.reset();
