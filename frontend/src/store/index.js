@@ -30,10 +30,14 @@ export default new Vuex.Store({
       status: state.status,
       token: state.token,
       auth_token: state.auth_token,
+      store_id: state.store_id
     }),
     isLoggedIn: (state) => !!state.token,
     nickname: (state) => {
       return state.nickname;
+    },
+    store_id: (state) => {
+      return state.store_id;
     }
   },
 
