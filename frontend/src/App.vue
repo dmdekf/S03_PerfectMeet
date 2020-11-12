@@ -42,12 +42,9 @@
           </v-list-item-content>
         </v-list-item>
         <v-list-item v-if="this.$store.state.store_id" link @click="$router.push('/user/Storemanagement')">
-<<<<<<< HEAD
-=======
           <v-list-item-action>
                 <v-icon>mdi-calendar</v-icon>
           </v-list-item-action>
->>>>>>> 14408b7dd1b6b8f1f612d37ad793a40ba2c035e5
             <v-list-item-content>
             <v-list-item-title>예약 관리</v-list-item-title>
           </v-list-item-content>
