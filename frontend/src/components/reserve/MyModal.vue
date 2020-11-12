@@ -95,7 +95,7 @@ export default {
       axios({
                 method: "post",
                 url: SERVER.URL+'/reserve/addWait',
-                headers:{
+                data:{
                     nickname: '',
                     store_id: 0,
                     date: this.date,

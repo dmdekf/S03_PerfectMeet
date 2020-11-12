@@ -42,6 +42,12 @@
           </v-list-item-content>
         </v-list-item>
         <v-list-item v-if="this.$store.state.store_id" link @click="$router.push('/user/Storemanagement')">
+<<<<<<< HEAD
+=======
+          <v-list-item-action>
+                <v-icon>mdi-calendar</v-icon>
+          </v-list-item-action>
+>>>>>>> 14408b7dd1b6b8f1f612d37ad793a40ba2c035e5
             <v-list-item-content>
             <v-list-item-title>예약 관리</v-list-item-title>
           </v-list-item-content>
@@ -136,8 +142,8 @@ import ChatWindow from '@/components/chat/ChatWindow.vue'
 export default {
   name: 'App',
   components:{
-		ChatWindow
-	},
+      ChatWindow
+   },
   computed: {
     ...mapGetters(['isLoggedIn']),
     ...mapGetters(['nickname']),
@@ -157,15 +163,15 @@ export default {
             this.$router.push(`/user/profile/${nickname}`);
       },
     openChat(){
-			if(this.nickname){
-				this.chatStatus = true;
-			}else{
-				alert("채팅은 로그인 후 이용 가능한 서비스입니다");
-			}
-		},
-		closeChat(){
-			this.chatStatus = false;
-		}
+         if(this.nickname){
+            this.chatStatus = true;
+         }else{
+            alert("채팅은 로그인 후 이용 가능한 서비스입니다");
+         }
+      },
+      closeChat(){
+         this.chatStatus = false;
+      }
   }
   
 }
