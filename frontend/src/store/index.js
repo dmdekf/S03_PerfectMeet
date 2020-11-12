@@ -112,9 +112,32 @@ export default new Vuex.Store({
             commit("SET_NICKNAME", {
               nickname: res.headers["nickname"]
             });
-            commit("SET_STOREID", {
-              store_id: res.headers["store_id"]
-            });
+            // commit("SET_STOREID", {
+            //   store_id: parseInt(res.headers["store_id"])
+            // });
+            axios({
+              method: "get",
+              url: SERVER.URL + "/feature/storeres/findStoreName",
+              params: {
+                nickname: res.headers["nickname"]
+              },
+            })
+              .then((rres) => {
+                console.log("Store info")
+                console.log(rres);
+                if (rres.data.status) {
+                  
+                  commit("SET_STOREID", {
+                    store_id: rres.data.data.id
+                  });
+                  
+                }
+              })
+              .catch((e) => {
+                console.log(e);
+              });
+
+
             getters.config;
             router.push({ name: "MAIN" });
           }
@@ -122,12 +145,16 @@ export default new Vuex.Store({
         .catch((e) => {
           console.log(e.response.data);
         });
+
+        
+        
     },
     logout({ commit }) {
       
       commit("SET_TOKEN", { token: "" });
       commit("SET_NICKNAME", { nickname: "" });
       commit("SET_STATUS", { status: "" });
+      commit("SET_STOREID", {store_id : null})
       router.push({
           name: "MAIN"
         });
