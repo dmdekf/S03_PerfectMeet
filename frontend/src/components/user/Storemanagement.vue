@@ -23,6 +23,7 @@
               fab
               small
               dark
+              @click="toreservelist"
             >
               <v-icon>mdi-check-bold</v-icon>
             </v-btn>
@@ -33,6 +34,7 @@
               fab
               small
               dark
+              @click="toremovewait"
             >
               <v-icon>mdi-close-thick</v-icon>
             </v-btn>
@@ -42,7 +44,7 @@
         </v-col>
         <v-col cols="6" align="center"
           justify="center">
-          예약 리스트
+          예약 확정 리스트
             <v-data-table
                 :headers="headers_list"
                 :items="reserve_lists"
@@ -55,44 +57,6 @@
     </v-container>
     </v-card>
   </v-app>
-
-<v-row justify="center">
-    
-    <v-dialog
-      v-model="dialog"
-      max-width="290"
-    >
-      <v-card>
-        <v-card-title class="headline">
-          예약 대기 관리
-        </v-card-title>
-
-        <v-card-text>
-          해당 예약을 수락 하시겠습니까?
-        </v-card-text>
-
-        <v-card-actions>
-          <v-spacer></v-spacer>
-
-          <v-btn
-            color="orange darken-1"
-            text
-            @click="deleteMessage()"
-          >
-            예약 수락
-          </v-btn>
-
-          <v-btn
-            color="orange darken-1"
-            text
-            @click="dialog = false"
-          >
-            예약 삭제
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-  </v-row>
 </div>
 </template>
 
@@ -113,10 +77,63 @@ export default {
                 })
                 .catch((err) => console.log(err.response.data));
         },
-        reservewaitClick(value) {
-            this.selectreservewaitId = value.id;
-            this.dialog=true;
-        
+        sendmsg(content, receiver) {
+          axios({
+                method:"post",
+                url: SERVER.URL+'/message/sendMessage',
+                params:{
+                    receiver: receiver,
+                    content: content,
+                    sender: this.$store.state.store_id
+                },
+            })
+        },
+        toreservelist(props) {
+          axios({
+                method:"delete",
+                url: SERVER.URL+'/reserve/removeWait',
+                params:{
+                    nickname: props.nickname,
+                    reserve_time: props.reserve_time,
+                    store_id: this.$store.state.store_id
+                },
+            })
+          .then(
+            this.sendmsg("예약이 확정되었습니다.", props.nickname),
+            axios({
+                method:"post",
+                url: SERVER.URL+'/reserve/addList',
+                params:{
+                    nickname: props.nickname,
+                    time: props.reserve_time,
+                    store_id: this.$store.state.store_id,
+                    people_num:props.people_num
+                },
+            })
+          )
+          .catch((err) => console.log(err));
+
+          var index = this.reserve_waitlists.indexOf(props)
+          this.reserve_waitlists.splice(index, 1)
+          alert("예약을 승인했습니다.")
+        },
+        toremovewait(props) {
+          axios({
+                method:"delete",
+                url: SERVER.URL+'/reserve/removeWait',
+                params:{
+                    nickname: props.nickname,
+                    reserve_time: props.reserve_time,
+                    store_id: this.$store.state.store_id
+                },
+            })
+          .then(
+            this.sendmsg("예약이 취소되었습니다.", props.nickname)
+          )
+          .catch((err) => console.log(err));
+        var index = this.reserve_waitlists.indexOf(props)
+            this.reserve_waitlists.splice(index, 1)
+            alert("예약을 거절했습니다.")        
         },
         getreservelists() {
             axios({
@@ -132,7 +149,6 @@ export default {
     },
     data: () => {
       return {
-        singleSelect: 'True',
         selected: [],
         selectreservewaitId:'',
         headers_waitlist: [
