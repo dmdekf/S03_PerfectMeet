@@ -32,13 +32,14 @@
                         <v-select
                         :items="items"
                         label="인원수"
+                        v-model="people_num"
                         outlined
                         ></v-select>
                     </v-col>
 
                     
                 </v-row>
-                <v-btn block outlined color="blue" @click="writeBoard"> 등록 </v-btn> 
+                 <v-btn block outlined color="blue" @click="writeBoard"> 등록 </v-btn> 
                 
       </div>
       <div class="my_modal__footer">
@@ -53,26 +54,21 @@
 
 import axios from "axios";
 import SERVER from "@/api/api";
-import { mapState } from 'vuex';
+import { formatDate } from '@/util/format';
+
 export default {
   name: 'my-modal',
   computed:{
       ...mapState(['nickname'])
   },
   data: () => ({
-      return:{
-        date: new Date().toISOString().substr(0, 10),
-        pickerDate: null,
-        notes: [],
-        items:['3','4','5','6','7','8','9','10'],
-        start: null, 
-        wait_info:{
-          time: '',
-          nickname:"",
-          store_id:"",
-          people_num:"",
-        }
-      }
+      date: new Date().toISOString().substr(0, 10),
+      pickerDate: null,
+      notes: [],
+      items:['3','4','5','6','7','8','9','10'],
+      start: null,
+      people_num: 0,
+      concat_time: null,
     }),
     watch: {
       pickerDate () {
@@ -104,22 +100,32 @@ export default {
       this.$emit('update:visible', false)
     },
     writeBoard(){
+      // console.log(this.date)
+      // console.log(this.start)
+      // console.log(this.people_num)
+      let time = this.date.concat(' ',this.start)
+      this.concat_time = this.getFormatDate(new Date(time))
+      // console.log(new Date(time))
+      console.log(time)
+      console.log(typeof(time))
       axios({
-          method: "post",
-          url: SERVER.URL+'/reserve/addWait',
-          data:{
-              date: this.date,
-              nickname: this.$store.state.nickname,
-              store_id: this.$store.state.store_id,
-              people_num: 3,
-          },
-      })
-      .then((res) => { 
-          console.log(this.nickname)
-          console.log(res)          
-      })
-      .catch((err) => console.log(err));
-    }
+                method: "post",
+                url: SERVER.URL+'/reserve/addWait',
+                data:{
+                    nickname: this.$store.state.nickname,
+                    store_id: this.$store.state.store_id,
+                    date: new Date(this.concat_time),
+                    people_num: this.people_num
+                },
+            })
+                .then((res) => { 
+                    console.log(res)          
+                })
+                .catch((err) => console.log(err));
+    },
+    getFormatDate(date){
+            return formatDate(date, 'YYYY.MM.DD HH:mm');
+        },
   },
 } 
 </script>

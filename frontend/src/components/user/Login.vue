@@ -190,9 +190,9 @@ export default {
       }
     },
     signupvalidate(signupData) {
-      console.log(signupData)
       this.signup(signupData)
-      if(this.storeData.address!=null){
+      console.log('주소 :' +this.storeData.address)
+      if(this.allowSpaces){
         console.log(this.sendstoreinfo);
         this.sendstoreinfo()
       }
