@@ -152,7 +152,7 @@ public class ReserveController {
 	
 	@PostMapping("/addWait")
 	@ApiOperation(value ="예약 요청 추가")
-	public Object makeReservrWait(@Valid @RequestBody ReserveWaitRequestDTO request) {
+	public Object makeReservrWait(@RequestBody ReserveWaitRequestDTO request) {
 		ResponseEntity<BasicResponse> response = null;
 		Map<String, Object> errors = new HashMap<>();
 		String mresult = reserveService.makeReservationWait(request);

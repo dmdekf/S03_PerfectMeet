@@ -160,7 +160,7 @@ export default {
           name:this.storeData.name,
           tel:this.storeData.tel,
           address:this.storeData.address,
-          nickname:this.nickname,
+          nickname:this.signupData.nickname,
         }
         })
       } else {
@@ -190,10 +190,12 @@ export default {
       }
     },
     signupvalidate(signupData) {
-      console.log(signupData)
       this.signup(signupData)
-      this.sendstoreinfo()
-      
+      console.log('주소 :' +this.storeData.address)
+      if(this.allowSpaces){
+        console.log(this.sendstoreinfo);
+        this.sendstoreinfo()
+      }
     },
     reset() {
       this.$refs.form.reset();
