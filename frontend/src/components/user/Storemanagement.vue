@@ -129,26 +129,26 @@ export default {
                 },
             })
         },
-        toreservelist(props) {
+        toreservelist() {
           axios({
                 method:"delete",
                 url: SERVER.URL+'/reserve/removeWait',
                 params:{
-                    nickname: props.nickname,
-                    reserve_time: props.reserve_time,
+                    nickname: this.selected.nickname,
+                    reserve_time: this.selected.reserve_time,
                     store_id: this.$store.state.store_id
                 },
             })
           .then(
-            this.sendmsg("예약이 확정되었습니다.", props.nickname),
+            this.sendmsg("예약이 확정되었습니다.", this.selected.nickname),
             axios({
                 method:"post",
                 url: SERVER.URL+'/reserve/addList',
                 params:{
-                    nickname: props.nickname,
-                    time: props.reserve_time,
+                    nickname: this.selected.nickname,
+                    time: this.selected.reserve_time,
                     store_id: this.$store.state.store_id,
-                    people_num:props.people_num
+                    people_num:this.selected.people_num
                 },
             })
           )
@@ -159,18 +159,18 @@ export default {
           alert("예약을 승인했습니다.")
           
         },
-        toremovewait(props) {
+        toremovewait() {
           axios({
                 method:"delete",
                 url: SERVER.URL+'/reserve/removeWait',
                 params:{
-                    nickname: props.nickname,
-                    reserve_time: props.reserve_time,
+                    nickname: this.selected.nickname,
+                    reserve_time: this.selected.reserve_time,
                     store_id: this.$store.state.store_id
                 },
             })
           .then(
-            this.sendmsg("예약이 취소되었습니다.", props.nickname)
+            this.sendmsg("예약이 취소되었습니다.", this.selected.nickname)
           )
           .catch((err) => console.log(err));
           this.selected = []
