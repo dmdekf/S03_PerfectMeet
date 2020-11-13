@@ -38,7 +38,7 @@
 
                     
                 </v-row>
-                 <v-btn block outlined :disabled="!valid" color="blue" @click="writeBoard"> 등록 </v-btn> 
+                <v-btn block outlined color="blue" @click="writeBoard"> 등록 </v-btn> 
                 
       </div>
       <div class="my_modal__footer">
@@ -53,15 +53,26 @@
 
 import axios from "axios";
 import SERVER from "@/api/api";
-
+import { mapState } from 'vuex';
 export default {
   name: 'my-modal',
+  computed:{
+      ...mapState(['nickname'])
+  },
   data: () => ({
-      date: new Date().toISOString().substr(0, 10),
-      pickerDate: null,
-      notes: [],
-      items:['3','4','5','6','7','8','9','10'],
-      start: null,
+      return:{
+        date: new Date().toISOString().substr(0, 10),
+        pickerDate: null,
+        notes: [],
+        items:['3','4','5','6','7','8','9','10'],
+        start: null, 
+        wait_info:{
+          time: '',
+          nickname:"",
+          store_id:"",
+          people_num:"",
+        }
+      }
     }),
     watch: {
       pickerDate () {
@@ -70,6 +81,7 @@ export default {
           this.allNotes[Math.floor(Math.random() * 5)],
           this.allNotes[Math.floor(Math.random() * 5)],
         ].filter((value, index, self) => self.indexOf(value) === index)
+        
       },
     },
   props: {
@@ -93,19 +105,20 @@ export default {
     },
     writeBoard(){
       axios({
-                method: "post",
-                url: SERVER.URL+'/reserve/addWait',
-                data:{
-                    nickname: '',
-                    store_id: 0,
-                    date: this.date,
-                    people_num: 3
-                },
-            })
-                .then((res) => { 
-                    console.log(res)          
-                })
-                .catch((err) => console.log(err));
+          method: "post",
+          url: SERVER.URL+'/reserve/addWait',
+          data:{
+              date: this.date,
+              nickname: this.$store.state.nickname,
+              store_id: this.$store.state.store_id,
+              people_num: 3,
+          },
+      })
+      .then((res) => { 
+          console.log(this.nickname)
+          console.log(res)          
+      })
+      .catch((err) => console.log(err));
     }
   },
 } 

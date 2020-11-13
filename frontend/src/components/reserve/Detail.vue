@@ -75,7 +75,7 @@ export default {
     },
     data: () => {
         return {
-            name: '',
+            name: '', 
             address: '',
             tel: '',
             image:'',

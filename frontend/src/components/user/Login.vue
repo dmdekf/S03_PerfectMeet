@@ -192,7 +192,7 @@ export default {
     signupvalidate(signupData) {
       console.log(signupData)
       this.signup(signupData)
-      if(storeData.name!=null){
+      if(this.storeData.address!=null){
         console.log(this.sendstoreinfo);
         this.sendstoreinfo()
       }
