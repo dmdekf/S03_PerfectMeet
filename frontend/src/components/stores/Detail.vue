@@ -50,7 +50,7 @@
                 <v-icon color="amber darken-3" class="mr-9">mdi-newspaper-variant-multiple-outline</v-icon>
                     리뷰 목록
                 </v-list-item-icon>
-                <v-btn class="mx-2 mt-1" dark color="indigo" v-on:click="writeReview(this.id)">
+                <v-btn class="mx-2 mt-1" dark color="indigo" v-on:click="writeReview">
                         <v-icon dark>mdi-pencil</v-icon>
                         리뷰 쓰기
                 </v-btn>
@@ -59,7 +59,7 @@
                         :key="idx">
                     <v-list-item-content>
                         <div>
-                            <div v-if="(reivew.nickname)===this.$store.state.nickname">
+                            <div v-if="(reivew.nickname)===nickname">
                                 <v-btn  v-on:click="deleteReivew(reivew.id)" icon color="red">
                                     <v-icon>mdi-trash-can-outline</v-icon>삭제
                                 </v-btn>
@@ -104,10 +104,11 @@ export default {
             image:'',
             likestatus:false,
             reivews:[],
+            nickname:'',
     }},
     methods:{
-        writeReview(storeId) {
-            this.$router.push(`/review/${storeId}/write`);
+        writeReview() {
+            this.$router.push(`/review/${this.id}/write`);
         },
         deleteReivew(reviewid) {
             axios({
@@ -168,7 +169,8 @@ export default {
                 method: "get",
                 url : SERVER.URL +`/dibs/${this.id}`,
                 headers:{
-                    nickname:this.$store.state.nickname}
+                    nickname:this.$store.state.nickname,
+                }
             })
             .then((res) => {
                 this.likestatus = res.data
@@ -179,15 +181,17 @@ export default {
             axios
             .get(SERVER.URL +`/feature/review/${this.id}/list`)
             .then((res) => {
+                console.log(res.data);
                 this.reivews = res.data
+
             })
             .catch((err) => console.error(err));
         }   
     },
     created() {
-        this.getStore()
-        this.getLike()
-        this.getReviews()
+            this.getStore()
+            this.getLike()
+            this.getReviews()
         },
 }
 </script>

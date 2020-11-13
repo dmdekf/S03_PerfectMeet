@@ -51,7 +51,7 @@
 </template>
 
 <script>
-
+ 
 import axios from "axios";
 import SERVER from "@/api/api";
 import { formatDate } from '@/util/format';
@@ -59,7 +59,6 @@ import { formatDate } from '@/util/format';
 export default {
   name: 'my-modal',
   computed:{
-      ...mapState(['nickname'])
   },
   data: () => ({
       date: new Date().toISOString().substr(0, 10),
