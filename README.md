@@ -149,10 +149,10 @@ gantt
 👨 **Hyung jin Jeon**
 
 * Github: [@wjsgudwls89](https://github.com/wjsgudwls89)
-* 
+
 👨 **Myung Hun Kang**
 
-* Github: [@MHKANG94](https://github.com/MHKANG94)
+* Github: [@MHKANG](https://github.com/MHKANG)
 
 
 
