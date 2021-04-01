@@ -91,6 +91,9 @@ export default {
           axios({
                 method: "put",
                 url: SERVER.URL+"/user",
+                headers:{
+                    nickname: this.nickname
+                },
                 data: {
                     nickname:this.nickname,
                     email:this.email,
@@ -108,6 +111,9 @@ export default {
           axios({
                 method: "delete",
                 url: SERVER.URL+"/user",
+                headers:{
+                  nickname:this.nickname,
+                },
                 data: {
                     nickname:this.nickname
                 }

@@ -9,6 +9,7 @@
             <v-form ref="writeForm" v-model="valid" lazy-validation>
             <v-row class="mx-4"> 
                 <v-card-text>
+                <v-row align="center" justify="center"> 점수 </v-row>
                 <v-slider
                     v-model="review_write.score"
                     max="5"
@@ -38,12 +39,16 @@ import { mapState } from 'vuex'
 export default {
     props:{
         storeId:{
-            type:String,
+            type:Number,
             required:true,
         },
     },
     data () {
         return { 
+            valid: true,
+            rules: {
+            required: value => !!value || "Required."
+            },
             review_write:{
                 img:'', 
                 content: '',
@@ -55,11 +60,13 @@ export default {
         ...mapState(['nickname'])
     },
     methods:{
-        writeboard() {
+        writeReview() {
+        
             axios({
                 method: "post",
                 url: SERVER.URL+"/feature/review/write",
                 data: {
+                    
                     img: this.review_write.img,
                     score:this.review_write.score,
                     storeId: this.storeId,
@@ -70,7 +77,7 @@ export default {
                 .then((res) => { 
                     console.log(res.data)
                     alert("리뷰 작성이 성공했습니다.")
-                    this.$router.push("/");
+                    this.$router.push(`/stores/detail/${this.storeId}`);
                 
                 })
                 .catch((err) => console.log(err.response.data));

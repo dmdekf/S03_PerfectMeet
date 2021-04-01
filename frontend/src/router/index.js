@@ -2,7 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Vuex from "vuex";
 import BootstrapVue from "bootstrap-vue";
-
+import VModal from 'vue-js-modal';
 import Main from "../components/Main.vue";
 import Recommand from '../components/Recommand.vue';
 
@@ -16,11 +16,25 @@ import boardDetail from "../components/board/Detail.vue";
 import storeDetail from "../components/stores/Detail.vue"
 
 import reviewWrite from "../components/review/Write.vue"
+
+//reservation
+import reserveResult from "../components/reserve/Result.vue";
+import reserveDetail from "../components/reserve/Detail.vue";
+import mymodal from "../components/reserve/index.vue";
+//reservation management
+import Storemanagement from "../components/user/Storemanagement.vue"
+
 Vue.use(BootstrapVue)
 Vue.use(Vuex)
 Vue.use(VueRouter)
+Vue.use(VModal, { dynamic: true })
 
 const routes = [
+  {
+    path: "/mymodal",
+    name: "mymodal",
+    component: mymodal,
+  },
   {
     path: "/",
     name: "MAIN",
@@ -30,6 +44,11 @@ const routes = [
     path:'/user/login',
     name: 'userLogin',
     component: Login,
+  }, 
+  {
+    path: '/user/Storemanagement',
+    name: 'Storemanagement',
+    component: Storemanagement,
   },
   {
     path: '/user/profile/:nickname',
@@ -97,7 +116,22 @@ const routes = [
     name: "reviewWrite",
     component: reviewWrite,
   },
-  
+  {
+    path: "/reserve/result",
+    name: "reserveResult",
+    component: reserveResult,
+  },
+  {
+    path: "/reserve/detail/:id",
+    props: ({
+      params
+    }) => ({
+      id: Number.parseInt(params.id)
+    }),
+    name: "reserveDetail",
+    component: reserveDetail
+  },
+
 ];
 
 const router = new VueRouter({

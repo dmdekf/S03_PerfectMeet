@@ -19,11 +19,7 @@ export default new Vuex.Store({
     login_user: "",
     auth_token: "",
     select_map: "",
-    
-    select_userinfo: {
-      gender: "",
-      age: "",
-    },
+    store_id:"",
     select_userpurpose: "",
     data_list: "",
     board_lists: []
@@ -34,8 +30,15 @@ export default new Vuex.Store({
       status: state.status,
       token: state.token,
       auth_token: state.auth_token,
+      store_id: state.store_id
     }),
     isLoggedIn: (state) => !!state.token,
+    nickname: (state) => {
+      return state.nickname;
+    },
+    store_id: (state) => {
+      return state.store_id;
+    }
   },
 
   mutations: {
@@ -44,6 +47,9 @@ export default new Vuex.Store({
     },
     SET_TOKEN(state, { token }) {
       state.token = token;
+    },
+    SET_STOREID(state, { store_id }) {
+      state.store_id = store_id;
     },
     SET_EMAIL(state, { email }) {
       state.email = email;
@@ -68,27 +74,27 @@ export default new Vuex.Store({
         })
         .catch((err) => console.log(err.response.data));
     },
-    signup(signupData) {
-      console.log(signupData)
+    signup({ getters },signupData) {
+      console.log(getters);
+      console.log(signupData);
       axios({
         method: "post",
         url: SERVER.URL + "/user",
         data: {
           email: signupData.email,
-          password: signupData.password,
           nickname: signupData.nickname,
+          password: signupData.password,
         },
       })
         .then((res) => {
           if (res.data.status) {
-            var as = 1;
-            console.log(as);
+            alert("인증 이메일이 전송되었습니다. 메일을 확인해주세요!")
+            router.push({ name: "MAIN" });
           }
-          alert("인증 이메일이 전송되었습니다. 메일을 확인해주세요!")
-          this.$router.push("/");
         })
         .catch((err) => console.log(err.response.data));
     },
+
     login({ commit, getters }, loginData) {
       console.log(loginData);
       axios({
@@ -106,6 +112,32 @@ export default new Vuex.Store({
             commit("SET_NICKNAME", {
               nickname: res.headers["nickname"]
             });
+            // commit("SET_STOREID", {
+            //   store_id: parseInt(res.headers["store_id"])
+            // });
+            axios({
+              method: "get",
+              url: SERVER.URL + "/feature/storeres/findStoreName",
+              params: {
+                nickname: res.headers["nickname"]
+              },
+            })
+              .then((rres) => {
+                console.log("Store info")
+                console.log(rres);
+                if (rres.data.status) {
+                  
+                  commit("SET_STOREID", {
+                    store_id: rres.data.data.id
+                  });
+                  
+                }
+              })
+              .catch((e) => {
+                console.log(e);
+              });
+
+
             getters.config;
             router.push({ name: "MAIN" });
           }
@@ -113,12 +145,16 @@ export default new Vuex.Store({
         .catch((e) => {
           console.log(e.response.data);
         });
+
+        
+        
     },
     logout({ commit }) {
       
       commit("SET_TOKEN", { token: "" });
       commit("SET_NICKNAME", { nickname: "" });
       commit("SET_STATUS", { status: "" });
+      commit("SET_STOREID", {store_id : null})
       router.push({
           name: "MAIN"
         });

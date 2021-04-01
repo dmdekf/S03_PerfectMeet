@@ -35,5 +35,8 @@ public class UserAuth {
 	private boolean gender;
 	
 	@Column
+	private Long store_id;
+	
+	@Column
 	private String token;
 }

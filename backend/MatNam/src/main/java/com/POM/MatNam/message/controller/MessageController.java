@@ -35,7 +35,7 @@ public class MessageController {
 	
 	@GetMapping("/getReceiver")
 	@ApiOperation(value ="특정 수신자가 받는 메세지 가져오기")
-	public Object getReceiverMessage(@RequestParam String receiver) {
+	public Object getReceiverMessage(@RequestParam(value="receiver", required = true) String receiver) {
 		ResponseEntity<BasicResponse> response = null;
 		Map<String, Object>errors = new HashMap<>();
 		Object rmlist = messageService.getMessageByReceiver(receiver);
@@ -129,7 +129,7 @@ public class MessageController {
 	
 	@PutMapping("/readMessage")
 	@ApiOperation(value ="메세지 읽기")
-	public Object readMessage(@RequestParam Long message_id) {
+	public Object readMessage(@RequestParam(value="message_id") Long message_id) {
 		ResponseEntity<BasicResponse> response = null;
 		Map<String, Object>errors = new HashMap<>();
 		boolean readResult = messageService.readMessage(message_id);
@@ -150,7 +150,7 @@ public class MessageController {
 	
 	@DeleteMapping("/deleteMessage")
 	@ApiOperation(value ="메세지 읽기")
-	public Object deleteMessage(@RequestParam Long message_id) {
+	public Object deleteMessage(@RequestParam(value="message_id") Long message_id) {
 		ResponseEntity<BasicResponse> response = null;
 		Map<String, Object>errors = new HashMap<>();
 		boolean deleteResult = messageService.deleteMessage(message_id);

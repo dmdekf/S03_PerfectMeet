@@ -6,14 +6,14 @@
             <div>
                 <v-tabs v-model="tab" show-arrows background-color="deep-purple accent-4" icons-and-text dark grow>
                     <v-tabs-slider color="purple darken-4"></v-tabs-slider>
-                    <v-tab v-for="i in tabs" :key="i">
+                    <v-tab v-for="(i, idx) in tabs" :key="idx">
                         <v-icon large>{{ i.icon }}</v-icon>
                         <div class="caption py-1">{{ i.name }}</div>
                     </v-tab>
                     <v-tab-item>
                         <v-card class="px-4">
                             <v-card-text>
-                                <v-form ref="loginForm" v-model="valid" lazy-validation>
+                                <v-form ref="loginForm" >
                                     <v-row max-width="500px">
                                         <v-col cols="12">
                                             <v-text-field v-model="loginData.loginEmail" :rules="loginEmailRules" label="E-mail" required></v-text-field>
@@ -50,6 +50,22 @@
                                         <v-col cols="12">
                                             <v-text-field block v-model="signupData.verify" :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'" :rules="[rules.required, passwordMatch]" :type="show1 ? 'text' : 'password'" name="input-10-1" label="Confirm Password" counter @click:append="show1 = !show1"></v-text-field>
                                         </v-col>
+                                        <v-col cols="12">
+                                        <v-checkbox
+                                          v-model="allowSpaces"
+                                          label="가게 주인계정 회원가입"
+                                        ></v-checkbox>
+                                        </v-col>
+                                        <v-col v-show="allowSpaces" cols="12">
+                                        <p>가게 주소 입력</p>
+                                        <p><input type="text" id="sample4_detailAddress" placeholder="가게 이름"  v-model="storeData.name"></p>
+                                        <p><input type="number" id="sample4_extraAddress" placeholder="전화번호 ex)023334444" v-model="storeData.tel">
+                                        </p>
+                                        <input type="button" @click="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
+                                        <input type="text" id="sample4_postcode" placeholder="우편번호" :readonly="true" >
+                                        <input type="text" id="sample4_roadAddress" placeholder="도로명주소" :readonly="true" >
+                                        <span id="guide" style="color:#999;display:none"></span>
+                                        </v-col>
                                     </v-row>
                                 </v-form>
 																<v-card-actions>
@@ -66,6 +82,7 @@
     </v-app>
 </div>
 </template>
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 import axios from "axios";
 import SERVER from "@/api/api";
@@ -78,7 +95,78 @@ export default {
     }
   },
   methods: {
+    sample4_execDaumPostcode() {
+      new daum.Postcode({
+        oncomplete(data) {
+          var roadAddr = data.roadAddress; 
+                var extraRoadAddr = ''; 
+
+                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                  extraRoadAddr += data.bname;
+                }
+                // 건물명이 있고, 공동주택일 경우 추가한다.
+                if(data.buildingName !== '' && data.apartment === 'Y'){
+                  extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                }
+                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                if(extraRoadAddr !== ''){
+                  extraRoadAddr = ' (' + extraRoadAddr + ')';
+                }
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById('sample4_postcode').value = data.zonecode;
+                document.getElementById("sample4_roadAddress").value = roadAddr;
+                
+                // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
+                if(roadAddr !== ''){
+                  document.getElementById("sample4_extraAddress").value = extraRoadAddr;
+                  
+                } else {
+                  document.getElementById("sample4_extraAddress").value = '';
+                }
+
+                var guideTextBox = document.getElementById("guide");
+                // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
+                if(data.autoRoadAddress) {
+                  var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
+                    guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
+                    guideTextBox.style.display = 'block';
+
+                } else if(data.autoJibunAddress) {
+                  var expJibunAddr = data.autoJibunAddress;
+                    guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
+                    guideTextBox.style.display = 'block';
+                } else {
+                  guideTextBox.innerHTML = '';
+                    guideTextBox.style.display = 'none';
+                }
+            
+            }
+        }).open();
+    },
     ...mapActions(['login','signup']),
+    sendstoreinfo() {
+      this.storeData.address = document.getElementById("sample4_roadAddress").value
+      console.log(this.storeData)
+      if (this.storeData) {
+      console.log(this.storeData)
+      axios({
+        method: "post",
+        //주소 바꾸기
+        url: SERVER.URL +"/feature/storeres/write",
+        data: {
+          name:this.storeData.name,
+          tel:this.storeData.tel,
+          address:this.storeData.address,
+          nickname:this.signupData.nickname,
+        }
+        })
+      } else {
+        pass
+      }
+    },
     onUpload() {
       console.log(this.imagefile.name)
       axios({
@@ -89,7 +177,7 @@ export default {
         },
       })
         .then((res) => {
-            console.log(res.data.fileName)
+          console.log(res.data.fileName)
         })
         .catch((err) => console.error(err));
     },
@@ -102,8 +190,12 @@ export default {
       }
     },
     signupvalidate(signupData) {
-      console.log(signupData)
       this.signup(signupData)
+      console.log('주소 :' +this.storeData.address)
+      if(this.allowSpaces){
+        console.log(this.sendstoreinfo);
+        this.sendstoreinfo()
+      }
     },
     reset() {
       this.$refs.form.reset();
@@ -113,6 +205,7 @@ export default {
     }
   },
   data: () => ({
+    allowSpaces: false,
     imagefile:null,
     imageUrl:null,
     dialog: true,
@@ -127,6 +220,11 @@ export default {
       email: "",
       password: "",
       verify:""
+    },
+    storeData:{
+      address:"",
+      tel:"", 
+      name:""
     },
     verify: "",
     key:"",
@@ -149,11 +247,12 @@ export default {
       min: v => (v && v.length >= 8) || "Min 8 characters"
     },
     filerules: [
-        value => !value || value.size < 200000000 || 'Avatar size should be less than 200 MB!',
+      value => !value || value.size < 200000000 || 'Avatar size should be less than 200 MB!',
       ],
   })
 }
 </script>
+
 <style scoped>
 
 </style>

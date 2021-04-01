@@ -22,17 +22,17 @@ public class Store {
 	
 	private String name;
 	
-	private String address;
+	private String category;
 	
 	private String tel;
 	
-	private String image;
+	private String address;
 	
-	private Float pur1;
+	private String time;
 	
-	private Float pur2;
+	private String convenience;
 	
-	private Float pur3;
+	private String menu;
 	
-	private Float pur4;
+	private String purpose;
 }

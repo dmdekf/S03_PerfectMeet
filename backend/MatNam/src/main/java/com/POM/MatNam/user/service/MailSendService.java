@@ -75,29 +75,29 @@ public class MailSendService {
                 + "<p>인증하기 버튼을 누르시면 인증이 완료되어 로그인이 가능해 집니다 : " + "<a href='http://localhost:8399/user/auth?id=" + id
                 + "&key=" + key + "'>인증하기</a></p>" + "(혹시 잘못 전달된 메일이라면 이 이메일을 무시하셔도 됩니다)";
 
-        MimeMessage message = new MimeMessage(session);
+        MimeMessage message = new MimeMessage(session); 
 
         message.setFrom(new InternetAddress(setfrom));
         message.setRecipient(Message.RecipientType.TO, new InternetAddress(email));
-        message.setSubject("완벽한 맛남 인증 메일입니다.");
+        message.setSubject("완벽한 맛남 인증 메일입니다."); 
         message.setText(htmlStr, "utf-8", "html");
-
+ 
         Transport.send(message);
     }
     
     public void mailSendWithPassword(String email, String nickname, String password)
-            throws AddressException, MessagingException {
+            throws AddressException, MessagingException { 
         Session session = getSetting();
         String setfrom = MyEmail;
         String htmlStr = "<h2>안녕하세요 EZI LOG 입니다!</h2><br><br>" + "<h3>" + nickname + "님</h3>" + "현재 고객님의 비밀번호는 "
                 + password + "입니다.";
 
-        MimeMessage message = new MimeMessage(session);
+        MimeMessage message = new MimeMessage(session); 
 
         message.setFrom(new InternetAddress(setfrom));
         message.setRecipient(Message.RecipientType.TO, new InternetAddress(email));
         message.setSubject("EZI LOG 비밀 번호 찾기 메일입니다.");
-        message.setText(htmlStr, "utf-8", "html");
+        message.setText(htmlStr, "utf-8", "html"); 
 
         Transport.send(message);
     }

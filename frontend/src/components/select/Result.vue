@@ -9,9 +9,9 @@
                         <div class="item">
                             <div class="recom">추천{{id+1}}</div><br/>
                             
-                                <img v-if="id==0" src="../assets/img/gold-medal.png">
-                                <img v-if="id==1" src="../assets/img/silver-medal.png">
-                                <img v-if="id==2" src="../assets/img/bronze-medal.png">
+                                <img v-if="id==0" src="../../assets/img/gold-medal.png">
+                                <img v-if="id==1" src="../../assets/img/silver-medal.png">
+                                <img v-if="id==2" src="../../assets/img/bronze-medal.png">
                             
                             <div class="name"><h3>{{post.name}}</h3></div>
                             <div class = "address"><v-icon>mdi-home-variant</v-icon>{{post.address}}</div>
@@ -30,7 +30,7 @@
 
 <script>
 import axios from "axios";
-//import SERVER from "@/api/api";
+import SERVER from "@/api/api";
 export default {
     props:{
         loc:{
@@ -38,7 +38,7 @@ export default {
             required:true
         },
         pur:{
-            type:Number,
+            type:String,
             required:true
         }
     },
@@ -46,9 +46,9 @@ export default {
         return {
             storeList:[],
             photos: [
-                '../assets/img/gold-medal.png',
-                '../assets/img/silver-medal.png',
-                '../assets/img/bronze-medal.png',
+                '../../assets/img/gold-medal.png',
+                '../../assets/img/silver-medal.png',
+                '../../assets/img/bronze-medal.png',
             ],
             limit:0,
             url:"",
@@ -63,7 +63,8 @@ export default {
             this.$router.push(`/stores/detail/${id}`);
         },
         getStores() {
-            axios.get("http://j3a507.p.ssafy.io:8399/stores?loc="+this.loc+"&pur="+this.pur)
+            console.log(this.loc+" "+this.pur);
+            axios.get(SERVER.URL+"/stores?loc="+this.loc+"&pur="+this.pur)
             .then((res)=>{
                     if(res.data) {
                         console.log(res.data);

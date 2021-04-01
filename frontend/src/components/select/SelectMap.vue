@@ -521,7 +521,7 @@
             </div>
             <div class="align-area">
               <div class="center-area">
-                <a href="javascript:history.go(-1)" class="btn round big gray">이전</a>
+                <a href="#" class="btn round big gray" in="btnPrev" @click="prev">이전</a>
                 <a href="#" class="btn round big red" id="btnNext" @click="next">다음</a>
               </div>
             </div>
@@ -553,6 +553,10 @@
       },
       next(){
         this.$emit('next', this.loc);
+        console.log(this.loc);
+      },
+      prev(){
+        this.$emit('prev');
       }
     },
   };
@@ -594,95 +598,11 @@ body {
   color: #222;
   word-break: keep-all;
 }
-
-abbr,
-address,
-applet,
-article,
-aside,
-audio,
-b,
-big,
-blockquote,
-body,
-button,
-canvas,
-caption,
-center,
-cite,
-code,
-dd,
-del,
-details,
-dfn,
-dialog,
-div,
-dl,
-dt,
-em,
-embed,
-fieldset,
-figcaption,
-figure,
-footer,
-form,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-header,
-hr,
 html,
 i,
-iframe,
-img,
-input,
-ins,
-kbd,
 label,
-legend,
-li,
-main,
-mark,
-menu,
-nav,
-object,
-ol,
-optgroup,
-output,
-p,
-pre,
-progress,
-q,
-ruby,
-s,
-samp,
-section,
-select,
-small,
-span,
-strike,
-strong,
-sub,
-summary,
-sup,
 svg,
-table,
-tbody,
-td,
-textarea,
-tfoot,
-th,
-thead,
-time,
-tr,
-tt,
-u,
-ul,
-var,
-video {
+ul {
   vertical-align: baseline;
   box-sizing: content-box;
   padding: 0;
@@ -709,29 +629,7 @@ video {
   line-height: 38px;
   font-family: Moebius;
 }
-/* word-break: keep-all;
-cursor: pointer;
-vertical-align: baseline;
-padding: 0;
-margin: 0;
-overflow: visible; 
-background: transparent;
-font: normal normal 100%/160% "나눔고딕", NanumGothic, "Segoe UI", AppleSDGothicNeo, "Apple SD Gothic Neo", "Apple SD 고딕 Neo", "Microsoft NeoGothic", "Droid sans", Verdana, Arial, sans-serif;
-text-decoration: none;
-text-shadow: none;
-box-sizing: border-box;
-transition: all .3s ease;
-display: inline-block;
-width: 100%;
-height: 40px;
-line-height: 38px;
-font-family: Moebius;
-font-size: 16px;
-text-align: center;
-border: 2px #999 solid;
-border-radius: 99em;
-color: #000;
-border-color: #000; */
+
 :not(svg) {
   transform-origin: 0px 0px;
 }
@@ -761,28 +659,7 @@ input[type="radio" i] {
   padding: initial;
   border: initial;
 }
-input {
-  text-rendering: auto;
-  color: -internal-light-dark(black, white);
-  letter-spacing: normal;
-  word-spacing: normal;
-  text-transform: none;
-  text-indent: 0px;
-  text-shadow: none;
-  display: inline-block;
-  text-align: start;
-  appearance: textfield;
-  background-color: -internal-light-dark(rgb(255, 255, 255), rgb(59, 59, 59));
-  -webkit-rtl-ordering: logical;
-  cursor: text;
-  margin: 0em;
-  font: 400 13.3333px Arial;
-  padding: 1px 2px;
-  border-width: 2px;
-  border-style: inset;
-  border-color: -internal-light-dark(rgb(118, 118, 118), rgb(195, 195, 195));
-  border-image: initial;
-}
+
 
 /* radio / radio */
 .map-road-step-wrap .area {
@@ -898,17 +775,5 @@ input {
   font-size: 20px;
   color: #777;
 }
-@media screen and (max-width: 768px) {
-  .map-road-map-area {
-    margin: 0 auto;
-    width: auto;
-  }
-  .map-road-map-area .map-road-map-table {
-    margin: 50px 10% 15px;
-  }
-  .map-road-map-area .map-road-map-area-list .notice {
-    margin-top: 10px;
-    font-size: 16px;
-  }
-}
+
 </style>

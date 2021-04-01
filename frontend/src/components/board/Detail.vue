@@ -29,7 +29,6 @@
             </v-list-item-content>
             </v-list-item>
         </v-card-title>
-        
         <v-card-text class="orange lighten-5" >
             <div class="ml-4" v-html="content">{{content}}</div>
         </v-card-text>

@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,6 +29,8 @@ import com.POM.MatNam.reserve.dto.ReserveWaitRequestDTO;
 import com.POM.MatNam.reserve.service.ReserveService;
 import com.POM.MatNam.response.BasicResponse;
 import com.POM.MatNam.response.ErrorResponse;
+import com.POM.MatNam.storeres.DAO.StoreResDao;
+import com.POM.MatNam.storeres.DTO.StoreRes;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -40,9 +43,12 @@ public class ReserveController {
 	@Autowired
 	private ReserveService reserveService;
 	
+	@Autowired
+	private StoreResDao storeResDao;
+	
 	@GetMapping("/reserveList")
 	@ApiOperation(value ="가게 예약 리스트 가져오기")
-	public Object getReserveList(@RequestParam Long store_id) {
+	public Object getReserveList(@RequestParam(value="store_id") Long store_id) {
 		ResponseEntity<BasicResponse> response = null;
 		Map<String, Object> errors = new HashMap<>();
 		Object reservelist = reserveService.reserveListStore(store_id);
@@ -65,9 +71,39 @@ public class ReserveController {
 		return response;
 	}
 	
+	@GetMapping("/userReserveList")
+	@ApiOperation(value="특정 유저가 예약한 가게 목록 가져오기")
+	public Object getUserRerseveList(@RequestParam(value="nickname") String nickname) {
+		ResponseEntity<BasicResponse> response = null;
+		Map<String, Object> errors = new HashMap<>();
+		
+		Object reserveList = reserveService.reserveListNickname(nickname);
+		
+		if(reserveList.equals("empty")) {
+			errors.put("field", "userReserveList");
+			errors.put("data", nickname);
+			final ErrorResponse result = setErrors("E=4107", "유저에 해당하는 예약 리스트가 없습니다.", errors);
+		}else {
+			final BasicResponse result = new BasicResponse();
+			Map<String, Object> data = new HashMap<>();
+			List<ReserveList> lists = (List<ReserveList>)reserveList;
+			for(int i = 0; i<lists.size(); i++) {
+				StoreRes temp = storeResDao.findById(lists.get(i).getStore_id()).get();
+				lists.get(i).setStore_name(temp.getName());
+			}
+			result.status ="S-200";
+			result.message = "가게 요청 목록 조회 성공";
+			data.put("list", lists);
+			result.data = data;
+			response = new ResponseEntity<>(result, HttpStatus.OK);
+		}
+		
+		return response;
+	}
+	
 	@GetMapping("/reserveWait")
 	@ApiOperation(value ="가게 예약 요청 목록 가져오기")
-	public Object getReserveWait(@RequestParam Long store_id) {
+	public Object getReserveWait(@RequestParam(value="store_id") Long store_id) {
 		ResponseEntity<BasicResponse> response = null;
 		Map<String, Object> errors = new HashMap<>();
 		Object reserveWait = reserveService.reserveWaitStore(store_id);
@@ -116,7 +152,7 @@ public class ReserveController {
 	
 	@PostMapping("/addWait")
 	@ApiOperation(value ="예약 요청 추가")
-	public Object makeReservrWait(@Valid @RequestBody ReserveWaitRequestDTO request) {
+	public Object makeReservrWait(@RequestBody ReserveWaitRequestDTO request) {
 		ResponseEntity<BasicResponse> response = null;
 		Map<String, Object> errors = new HashMap<>();
 		String mresult = reserveService.makeReservationWait(request);

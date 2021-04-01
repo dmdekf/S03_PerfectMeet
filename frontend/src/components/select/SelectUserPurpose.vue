@@ -6,7 +6,7 @@
             <div class="map-road-choice step03">
                     <div class="item item01">
                         <label for="forWho1">
-                            <input type="radio" id="forWho1" name="forWho" value="6">
+                            <input type="radio" id="forWho1" name="forWho" value="상견례">
                                 <i>
                                     <span class="img sex02"></span>
                                     <strong>
@@ -19,7 +19,7 @@
                     
                     <div class="item item02">
                         <label for="forWho2">
-                            <input type="radio" id="forWho2" name="forWho" value="7">
+                            <input type="radio" id="forWho2" name="forWho" value="회식">
                             <i>
                                 <span class="img"></span>
                                 <strong>
@@ -31,7 +31,7 @@
                 
                     <div class="item item03">
                         <label for="forWho3">
-                            <input type="radio" id="forWho3" name="forWho" value="8">
+                            <input type="radio" id="forWho3" name="forWho" value="데이트">
                                 <i>
                                 <span class="img"></span>
                                     <strong>
@@ -44,7 +44,7 @@
                     
                     <div class="item item04">
                         <label for="forWho4">
-                            <input type="radio" id="forWho4" name="forWho" value="9">
+                            <input type="radio" id="forWho4" name="forWho" value="가족모임">
                                 <i>
                                     <span class="img"></span>
                                     <strong>
@@ -58,7 +58,7 @@
             <div class="align-area">
                 <div class="center-area">
                     <a href="#" class="btn round big gray" @click="prev">이전</a>
-                    <a href="#" class="btn round big red" id="btnNext" @click="next">다음</a>
+                    <a href="#" class="btn round big red" id="btnNext" @click="next">결과보기</a>
                 </div>
             </div>
         </div>
@@ -66,12 +66,19 @@
 </template> 
 <script>
 export default {
+    data: ()=>{
+      return{
+        pur:""
+      }
+    },
     methods: {
         prev(){
+            console.log(this.$emit('prev'));
             this.$emit('prev');
         },
         next(){
             var p = document.querySelector("input[name=forWho]:checked").value;
+            console.log(p);
             this.$emit('next', p);
         }
     },
@@ -87,10 +94,10 @@ export default {
 .map-road-choice .item i .img { display: block; width: 237px; height: 150px; background-repeat: no-repeat; background-position: 50% 50%; background-size: contain; }/* 200525 */
 
 
-.map-road-choice.step03 .item.item01 i .img { background-image: url("../assets/img/wedding.png"); } 
-.map-road-choice.step03 .item.item02 i .img { background-image: url("../assets/img/teammate.png"); } 
-.map-road-choice.step03 .item.item03 i .img { background-image: url("../assets/img/couple.png"); }
-.map-road-choice.step03 .item.item04 i .img { background-image: url("../assets/img/family.png"); }
+.map-road-choice.step03 .item.item01 i .img { background-image: url("../../assets/img/wedding.png"); } 
+.map-road-choice.step03 .item.item02 i .img { background-image: url("../../assets/img/teammate.png"); } 
+.map-road-choice.step03 .item.item03 i .img { background-image: url("../../assets/img/couple.png"); }
+.map-road-choice.step03 .item.item04 i .img { background-image: url("../../assets/img/family.png"); }
 
 .map-road-choice .item input:checked + i { border-width: 3px; border-style: solid; border-color: #d61d2a; color: #d61d2a; }
 .map-road-choice .item i em { display: block; font-family: Moebius; font-size: 16px; color: #666; }
