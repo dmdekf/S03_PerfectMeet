@@ -1,6 +1,8 @@
 package com.POM.MatNam.reserve.controller;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,7 +16,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,8 +25,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.POM.MatNam.reserve.dto.ReserveList;
+import com.POM.MatNam.reserve.dto.ReserveListRequestDTO;
 import com.POM.MatNam.reserve.dto.ReserveWait;
 import com.POM.MatNam.reserve.dto.ReserveWaitRequestDTO;
+import com.POM.MatNam.reserve.dto.WaitDeleteRequestDTO;
 import com.POM.MatNam.reserve.service.ReserveService;
 import com.POM.MatNam.response.BasicResponse;
 import com.POM.MatNam.response.ErrorResponse;
@@ -129,6 +132,14 @@ public class ReserveController {
 	@PostMapping("/addList")
 	@ApiOperation(value ="예약 리스트 추가")
 	public Object makeReservrList(@Valid @RequestBody ReserveWaitRequestDTO request) {
+		System.out.println("");
+		System.out.println("예약 리스트 추가 진입");
+		System.out.println("매장 번호: " +request.getStore_id());
+		System.out.println("예약자: " +request.getNickname());
+		System.out.println("예약 인원: "+ request.getPeople_num());
+		
+		request.setDate(request.getDate().plusHours(9));
+		System.out.println("예약 날짜: " +request.getDate());
 		ResponseEntity<BasicResponse> response = null;
 		Map<String, Object> errors = new HashMap<>();
 		String mresult = reserveService.makeReservationList(request);
@@ -155,6 +166,7 @@ public class ReserveController {
 	public Object makeReservrWait(@RequestBody ReserveWaitRequestDTO request) {
 		ResponseEntity<BasicResponse> response = null;
 		Map<String, Object> errors = new HashMap<>();
+		request.setDate(request.getDate().plusHours(9));
 		String mresult = reserveService.makeReservationWait(request);
 		if(mresult.equals("success")) {
 			final BasicResponse result = new BasicResponse();
@@ -250,7 +262,7 @@ public class ReserveController {
 	@DeleteMapping("/removeList")
 	@ApiOperation(value = "예약 리스트 제거")
 	public Object deleteList(@RequestParam Long store_id, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)	LocalDateTime reserve_time, 
-			@RequestHeader(value="nickname", required =true)String nickname) {
+			@RequestParam(value="nickname", required =true)String nickname) {
 		ResponseEntity<BasicResponse> response = null;
 		Map<String, Object> errors = new HashMap<>();
 		Object list = reserveService.getList(store_id, reserve_time, nickname);
@@ -280,13 +292,13 @@ public class ReserveController {
 	
 	@DeleteMapping("/removeWait")
 	@ApiOperation(value = "예약 요청 제거")
-	public Object deleteWait(@RequestParam Long store_id, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime reserve_time, 
-			@RequestHeader(value="nickname", required =true)String nickname) {
+	public Object deleteWait(@RequestBody WaitDeleteRequestDTO request) {
 		ResponseEntity<BasicResponse> response = null;
 		Map<String, Object> errors = new HashMap<>();
-		Object wait = reserveService.getWait(store_id, reserve_time, nickname);
+		request.setDate(request.getDate().plusHours(9));
+		Object wait = reserveService.getWait(request.getStore_id(), request.getDate(), request.getNickname());
 		if(!wait.equals("notFound")) {
-			if(((ReserveWait)wait).getNickname().equals(nickname)) {
+			if(((ReserveWait)wait).getNickname().equals(request.getNickname())) {
 				final BasicResponse result = new BasicResponse();
 				reserveService.deleteReservationWait(((ReserveWait)wait).getId());
 				result.status = "S-200";
@@ -294,15 +306,15 @@ public class ReserveController {
 				response = new ResponseEntity<>(result, HttpStatus.OK);
 			}else {
 				errors.put("field", "no Authorization");
-				errors.put("nickname", nickname);
+				errors.put("nickname", request.getNickname());
 				final ErrorResponse result = setErrors("E-4105", "예약  요청 삭제 권한이 없습니다.", errors);
 				response = new ResponseEntity<>(result, HttpStatus.FORBIDDEN);
 			}
 		}else {
 			errors.put("field", "noList");
-			errors.put("store_id", store_id);
-			errors.put("date", reserve_time);
-			errors.put("nickname", nickname);
+			errors.put("store_id", request.getStore_id());
+			errors.put("date", request.getDate());
+			errors.put("nickname", request.getNickname());
 			final ErrorResponse result = setErrors("E-4106", "존재 하지 않는 예약 리스트", errors);
 			response = new ResponseEntity<>(result, HttpStatus.NOT_FOUND);
 		}

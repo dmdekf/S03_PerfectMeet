@@ -156,11 +156,11 @@ public class ReserveService {
 	public String makeReservationList(ReserveWaitRequestDTO request) {
 		
 		String result ="";
-		
 		Optional<ReserveWait> optWait;
 		optWait = reserveWaitDao.findReserveWaitByStoreAndTimeAndNickname(request.getStore_id(), request.getDate(), request.getNickname());
 		
 		if(optWait.isPresent()) {
+			System.out.println("wait 존재");
 			ReserveList insertReserve = new ReserveList();
 			insertReserve.setNickname(request.getNickname());
 			insertReserve.setPeople_num(request.getPeople_num());
@@ -172,6 +172,7 @@ public class ReserveService {
 			
 			result = "success";
 		}else {
+			System.out.println("wait 비존재");
 			result = "fail";
 		}
 			

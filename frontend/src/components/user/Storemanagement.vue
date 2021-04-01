@@ -11,8 +11,7 @@
             <v-data-table
                 :headers="headers_waitlist"
                 :items="reserve_waitlists"
-                item-key="nickname"
-                @click:row="waitreserveClick(props)"
+                @click:row="waitreserveClick"
             >
             <template slot="items" slot-scope="props">
               
@@ -28,7 +27,6 @@
             <v-data-table
                 :headers="headers_list"
                 :items="reserve_lists"
-                item-key="nickname"
                 class="elevation-1"
             >
             </v-data-table>
@@ -96,8 +94,8 @@ import { formatDate } from '@/util/format';
 
 export default {
     methods: {
-      waitreserveClick(props){
-            this.selected = props
+      waitreserveClick(value){
+            this.selected = value
             this.dialog=true;
 
         },
@@ -122,35 +120,37 @@ export default {
           axios({
                 method:"post",
                 url: SERVER.URL+'/message/sendMessage',
-                params:{
+                data:{
                     receiver: receiver,
                     content: content,
-                    sender: this.$store.state.store_id
+                    sender: this.$store.state.nickname
                 },
             })
         },
         toreservelist() {
+          console.log(this.selected.reserve_date)
+          console.log(this.selected.people_num)
           axios({
-                method:"delete",
-                url: SERVER.URL+'/reserve/removeWait',
-                params:{
-                    nickname: this.selected.nickname,
-                    reserve_time: this.selected.reserve_time,
-                    store_id: this.$store.state.store_id
-                },
-            })
-          .then(
-            this.sendmsg("예약이 확정되었습니다.", this.selected.nickname),
-            axios({
                 method:"post",
                 url: SERVER.URL+'/reserve/addList',
-                params:{
+                data:{
                     nickname: this.selected.nickname,
-                    time: this.selected.reserve_time,
+                    date: new Date(this.selected.reserve_date),
                     store_id: this.$store.state.store_id,
                     people_num:this.selected.people_num
                 },
             })
+          .then(
+            this.sendmsg("예약이 확정되었습니다.", this.selected.nickname),
+            // axios({
+            //     method:"delete",
+            //     url: SERVER.URL+'/reserve/removeWait',
+            //     data:{
+            //         nickname: this.selected.nickname,
+            //         date: this.selected.reserve_time,
+            //         store_id: this.$store.state.store_id
+            //     },
+            // })
           )
           .catch((err) => console.log(err));
           this.selected = []
@@ -163,9 +163,9 @@ export default {
           axios({
                 method:"delete",
                 url: SERVER.URL+'/reserve/removeWait',
-                params:{
+                data:{
                     nickname: this.selected.nickname,
-                    reserve_time: this.selected.reserve_time,
+                    date: new Date(this.selected.reserve_date),
                     store_id: this.$store.state.store_id
                 },
             })
@@ -195,7 +195,7 @@ export default {
                 .catch((err) => console.log(err.response.data));
         },
         getFormatDate(date){
-            return formatDate(date, 'YY.MM.DD HH:mm');
+            return formatDate(date, 'YYYY.MM.DD HH:mm');
         },
     },
     created (){

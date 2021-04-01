@@ -118,9 +118,15 @@ export default {
                 },
             })
                 .then((res) => { 
-                    console.log(res)          
+                    console.log(res);
+                    alert("예약이 완료 되었습니다.")        
                 })
-                .catch((err) => console.log(err));
+                .catch((err) =>{
+                    console.log(err)
+                    alert("오류로 인해 예약 실패") 
+                });
+                this.$router.push("/"); 
+            
     },
     getFormatDate(date){
             return formatDate(date, 'YYYY.MM.DD HH:mm');
